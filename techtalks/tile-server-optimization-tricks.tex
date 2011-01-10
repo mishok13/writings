@@ -36,4 +36,47 @@
   \tableofcontents
 \end{frame}
 
+\section{Looking for bottlenecks}
+
+\begin{frame}
+  \frametitle{HTTP benchmarking}
+  \begin{itemize}
+  \item ApacheBench
+  \item http\_perf
+  \item siege
+  \item tsung
+  \item JMeter
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Basic profiling in Python}
+  \begin{itemize}
+  \item hotshot
+  \item profile
+  \item cProfile
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Profiling twisted applications}
+  \begin{itemize}
+  \item Using \texttt{--profile} and \texttt{--profiler}
+    switches in \texttt{twistd}
+  \item But that leads to massive performance hit
+  \item Logging
+  \end{itemize}
+\end{frame}
+
+\section*{Summary}
+
+\begin{frame}{}
+  \begin{itemize}
+  \item It's not always 20/80 rule
+  \item Sometimes there're no apparent bottlenecks
+  \item Just eliminate the easy ones
+  \item Tip: I/O bottlenecks are hard
+  \end{itemize}
+\end{frame}
+
+\section{Empty section}
+
 \end{document}
