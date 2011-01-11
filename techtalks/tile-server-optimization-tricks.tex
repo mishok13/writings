@@ -13,6 +13,10 @@
 \usepackage{times}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+
 
 % \usepackage[T1]{fontenc}
 
@@ -66,7 +70,9 @@
   \end{itemize}
 \end{frame}
 
-\section{Profiling tiles API}
+\section
+
+\subsection{Profiling tiles API}
 
 \begin{frame}{}
   \begin{itemize}
@@ -74,25 +80,13 @@
   \end{itemize}
 \end{frame}
 
-\section{Profiling staticmaps API}
+\subsection{Profiling staticmaps API}
 
-\begin{frame}{Requirements}
+\begin{frame}{Reality}
   \begin{itemize}
-  \item Maximum response time
-  \item Minimal concurrent connections
-  \item Average request per second
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Issues}
-  \begin{itemize}
-  \item
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{}
-  \begin{itemize}
-  \item
+  \item Performance degraded in exponential way
+  \item Performance degraded starting from 2 users
+  \item Only health checks worked
   \end{itemize}
 \end{frame}
 
