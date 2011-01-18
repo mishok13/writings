@@ -41,16 +41,51 @@
 
 \section{Looking for bottlenecks}
 
-\begin{frame}
-  \frametitle{HTTP benchmarking}
+\subsection{From the outside}
+
+\begin{frame}{HTTP benchmarking tools}
   \begin{itemize}
-  \item ApacheBench
-  \item http\_perf
-  \item siege
-  \item tsung
   \item JMeter
+  \item tsung
+  \item ApacheBench
+  \item http\_load
+  \item siege
   \end{itemize}
 \end{frame}
+
+\begin{frame}{JMeter}
+  \begin{itemize}
+  \item Default tool used by our QA team
+  \item Powerful beyond my comprehension
+  \item But it's not that easy to setup correctly
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tsung}
+  \begin{itemize}
+  \item Even more featurefull than JMeter
+  \item Way harder to interact with, no GUI
+  \item All tests are described using XML scenarios
+  \item Can scale test run over hundreds of servers for distributed testing
+  \item Written in Erlang
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{ApacheBench}
+  \begin{itemize}
+  \item Not useful for anything but single URL benchmarks
+  \item But that's one powerful tool for sure
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Siege and http\_load}
+  \begin{itemize}
+  \item Simple tools for load testing
+  \item Give them file with list of URLs and get short statistics of benchmark
+  \end{itemize}
+\end{frame}
+
+\subsection{From the inside}
 
 \begin{frame}{Basic profiling in Python}
   \begin{itemize}
@@ -69,13 +104,46 @@
   \end{itemize}
 \end{frame}
 
-\section{Profiling}
+\section{To the meat}
+
+\subsection{Overall}
 
 \subsection{Profiling tiles API}
 
-\begin{frame}{}
+\begin{frame}{Reality}
+  Tiles are not simple to profile correctly
   \begin{itemize}
-  \item \rightarrow{}
+  \item If using HTTP benchmark, tile might get ``rendered'' in no time due to metatile rendering approach
+  \item From the inside, tiles is a loosely coupled system, with lots of non-blocking code
+  \item Adding timefunc for every callback sounds like too much work
+  \item How do you calculate network latency in reactor model?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Approach}
+  \begin{itemize}
+  \item Log freaking everything everywhere
+  \item Mark every request with its unique identifier
+  \item Write analysis tool
+  \item Stare in amusement
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Results}
+  \begin{itemize}
+  \item There's no simple pattern
+  \item Sometimes 90\% of the time is spent waiting for PostgreSQL to return data
+  \item Sometimes 60\% of the time is spent rendering
+  \item Adjacent (meta-)tiles with similar data might have drastically different rendering times
+  \item There's no definite bottleneck that we could eliminate
+  \item And there's a lot of factors which make benchmarking quite unreliable
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Tiles summary}
+  \begin{itemize}
+  \item No bottlenecks \(\Rightarrow\) optimize everything
+  \item \ldots or switch to other data store and/or renderer altogether
   \end{itemize}
 \end{frame}
 
