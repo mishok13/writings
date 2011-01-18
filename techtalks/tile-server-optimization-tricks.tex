@@ -87,20 +87,45 @@
 
 \subsection{From the inside}
 
-\begin{frame}{Basic profiling in Python}
+\begin{frame}{Available tools}
   \begin{itemize}
   \item hotshot
-  \item profile
-  \item cProfile
+  \item profile and cProfile
+  \item \texttt{twistd --profile}
+  \item pgbench
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Profiling twisted applications}
+\begin{frame}{hotshot}
+  \begin{itemize}
+  \item Logging profiler
+  \item Quite good analysis
+  \item Doesn't work with Python threading module (which is used occasionally)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{profile/cProfile}
+  \begin{itemize}
+  \item Full-featured deterministic profiling
+  \item Lots of available statistics
+  \item Context information is not lost
+  \item But this only works for Python code (so Mapnik and PostgreSQL are left out)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Using twistd runner}
   \begin{itemize}
   \item Using \texttt{--profile} and \texttt{--profiler}
     switches in \texttt{twistd}
-  \item But that leads to massive performance hit
-  \item Logging timestamps of important calls
+  \item So, just a wrapper for Python profilers
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{pgbench}
+  \begin{itemize}
+  \item The ultimate tool for testing PostgreSQL
+  \item Has all the features DBA would need when optimizing specific queries
+  \item Unfortunately, I couldn't come up with a scenario to simulate the way Mapnik handles communication with PG
   \end{itemize}
 \end{frame}
 
@@ -140,7 +165,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Tiles summary}
+\begin{frame}{Tiles optimization summary}
   \begin{itemize}
   \item No bottlenecks \(\Rightarrow\) optimize everything
   \item \ldots or switch to other data store and/or renderer altogether
