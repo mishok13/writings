@@ -133,6 +133,22 @@
 
 \subsection{Overall}
 
+\begin{frame}{(Self-imposed) Requirements}
+  \begin{itemize}
+  \item Performance degradation should be predictable
+  \item Performance shouldn't degrade when using cache
+  \item Standard deviation should be in 25\% of the mean time (that is, response time should preferably be in normal distribution)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The process}
+  \begin{itemize}
+  \item Preliminary testing (before QA) is done with siege and http\_load
+  \item Hudson running locally also has basic performance tests
+  \item QA then goes on with standard JMeter procedures
+  \end{itemize}
+\end{frame}
+
 \subsection{Profiling tiles API}
 
 \begin{frame}{Reality}
@@ -169,6 +185,7 @@
   \begin{itemize}
   \item No bottlenecks \(\Rightarrow\) optimize everything
   \item \ldots or switch to other data store and/or renderer altogether
+  \item No real work on optimizing has been done yet due to harsh reality of life and lack of time
   \end{itemize}
 \end{frame}
 
@@ -178,7 +195,24 @@
   \begin{itemize}
   \item Performance degraded in exponential way
   \item Performance degraded starting from 2 users
-  \item Only health checks worked
+  \item Health checks hardly worked when under high load
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Reasons}
+  \begin{itemize}
+  \item Porting from blocking (threaded) to non-blocking code was done carelessly
+  \item Tile gathering code has been a dull iteration, rather than fire-and-collect approach
+  \item Too much overhead when collecting tiles
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Staticmaps optimization summary}
+  \begin{itemize}
+  \item All blocking code has been rewritten from scratch
+  \item Overhead been eliminated by localizing gathering of tiles
+  \item In-code documentation appeared (it appears quite important when rewriting from scratch)
+  \item Happy Jim
   \end{itemize}
 \end{frame}
 
@@ -186,9 +220,9 @@
 
 \begin{frame}{}
   \begin{itemize}
-  \item It's not always 20/80 rule
+  \item It's not always about 20/80 rule
   \item Sometimes there're no apparent bottlenecks
-  \item Just eliminate the easy ones
+  \item Optimizing one by one is OK, but priorities should be set
   \item Tip: I/O bottlenecks are hard
   \end{itemize}
 \end{frame}
