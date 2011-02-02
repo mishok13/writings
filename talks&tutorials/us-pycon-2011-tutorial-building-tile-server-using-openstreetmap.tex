@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass{beamer}
 
 \usepackage{mathtools}
 
@@ -10,14 +10,30 @@
 
 \maketitle
 
-\section{OpenStreetMap}
+\begin{frame}{Topics}
+  \begin{itemize}
+  \item GIS basics
+  \item OpenStreetMap data
+  \item Rendering with Mapnik
+  \end{itemize}
+\end{frame}
 
-What is openstreetmap?
-What kind of data openstreetmap provides?
-What form
+\section{GIS basics}
 
+\begin{frame}{What is GIS}
+  Geographical information system
+  Collect, analyze and manage data that can be linked to location.
+  Collect hence cartography
+  Analyze statistical analysis
+  Manage hence database
+  GIS stands somewhere between cartography, statistical analysis and software engineering
+\end{frame}
 
-\section{GIS short introduction}
+\begin{frame}{Collecting data}
+  GPS devices
+  Aerial photography
+  etc
+\end{frame}
 
 GIS in general
 Projections
@@ -26,6 +42,14 @@ WKB, WKT
 Where to store
 PostGIS, MySQL Spatial, Oracle Spatial
 Shapefiles, KML, GML, OGR
+
+\section{OpenStreetMap}
+
+What is openstreetmap?
+What kind of data openstreetmap provides?
+What form
+
+
 
 \section{Accessing tiles}
 
