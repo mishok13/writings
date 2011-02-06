@@ -1,2 +1,13 @@
 <Map>
+  <Style>
+    <Rule>
+      <PolygonSymbolizer></PolygonSymbolizer>
+      <LineSymbolizer></LineSymbolizer>
+    </Rule>
+  </Style>
+  <Layer>
+    <StyleName></StyleName>
+    <Datasource>
+    </Datasource>
+  </Layer>
 </Map>
