@@ -74,9 +74,47 @@ helps achieve the goal of being accessible for everybody.
 
 \subsection{Simple Mapnik rendering}
 
+This is a short example which creates basic map object, applies simple styling
+rules and provides a datasource.
+
 \lstinputlisting{simple-rendering.py}
 
+Let's outline several points here.
+
+Creation of map
+
+Creating and applying styles
+
+Attaching datasources
+
+Rendering
+
 \subsection{Simple Mapnik XML}
+
+Of course, defining such logic in code is not only cumbersome, but also makes
+such tasks as serialization and changing Mapnik styles on the fly
+
+\lstinputlisting{simple.xml}
+
+IMAGE
+
+Adding Tissot's indicatrix
+
+\lstinputlisting{tissot-indicatrix.xml}
+
+IMAGE
+
+Viewing in different projection
+
+\lstinputlisting{tissot-indicatrix-mercator.xml}
+
+IMAGE
+
+\lstinputlisting{tissot-indicatrix-mercator.xml}
+
+IMAGE
+
+
 
 \section{References}
 
