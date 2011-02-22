@@ -10,11 +10,19 @@
 
 \maketitle
 
-\begin{frame}{Topics}
+\begin{frame}{What will you learn?}
   \begin{itemize}
-  \item GIS basics
-  \item OpenStreetMap data
-  \item Rendering with Mapnik
+  \item Cartography basics
+  \item How to render cartography imagery with Mapnik
+  \item How to build basic cartography web service with Werkzeug
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{First of all}
+  \begin{itemize}
+  \item Grab the CD or flash with all the data from me
+  \item Copy the content somewhere
+  \item Get prepared
   \end{itemize}
 \end{frame}
 
@@ -45,11 +53,12 @@
 \end{frame}
 
 \begin{frame}{Formats of data}
-  WKB
-  WKT
-  GeoJSON for unstructured data
-  GML
-  KML
+  \begin{itemize}
+  \item Well known binary/text
+  \item GeoJSON for unstructured data
+  \item GML
+  \item KML
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Ways to store data}
@@ -65,7 +74,6 @@
   Shapely
   OGR
 \end{frame}
-
 
 \subsection{OpenStreetMap}
 
@@ -87,19 +95,49 @@ Crowd-sourcing
   Data quality greatly varies (depends on community)
 \end{frame}
 
-\section{Rendering}
+\begin{frame}{Data structure}
+highly unstructured
+lat,lon,tags
+\end{frame}
 
-\subsection{How-to}
-
-\begin{frame}{}
-  Get the data
-  Put the geometric features in the predefined way
+\begin{frame}{Tag system}
 
 \end{frame}
 
-\subsection{Mapnik}
+\begin{frame}{OSM API}
+  \begin{itemize}
+  \item basic structutre
+  \item transactional
+  \item requests
+  \end{itemize}
+\end{frame}
 
-\begin{frame}{}
+\begin{frame}{OSM XAPI}
+  \begin{itemize}
+  \item Unofficial
+  \item Large requests
+  \item Recommended
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Downloads}
+  \begin{itemize}
+  \item Planet.osm (whole world)
+  \item regions osm files (CloudMade, GeoFabrik)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Handling data}
+  \begin{itemize}
+  \item osm2pgsql
+  \item Osmosis
+  \item Write your own
+  \end{itemize}
+\end{frame}
+
+\section{Rendering}
+
+
 
 \end{frame}
 
@@ -152,5 +190,22 @@ Style file, layers and datasources
 Fonts
 Symbolizers
 
+To tile server
+
+WMS
+Tile API
+Different ways
+Google, Bing, Mapquest, Yahoo
+Building tile server from scratch
+Staticmaps
+
+Flask + Mapnik
+
+Changing styles on the fly
+Staticmaps
+Get tiles in bounding box
+
+
+http://msdn.microsoft.com/en-us/library/bb259689.aspx
 
 \end{document}
