@@ -4,6 +4,7 @@
 from flask import Flask, Response
 import mapnik
 import math
+mapnik.register_plugins('/usr/lib/mapnik/input')
 
 
 projection = mapnik.Projection("+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 "
@@ -45,8 +46,19 @@ def pixel2latlon(coord, zoom, tile_size=256):
 
 
 @app.route('/')
-def main():
+def hello():
     return 'Hello world'
+
+
+@app.route('/test')
+def simple():
+    bbox = mapnik.Envelope(mapnik.Coord(-20037508.34, -20037508.34),
+                           mapnik.Coord(20037508.34, 20037508.34))
+    try:
+        return Response(render(map, bbox, 600, 600), content_type='image/png')
+    except Exception, exc:
+        print exc
+
 
 
 @app.route('/<int:zoom>/<int:xtile>/<int:ytile>.<image_type>')
