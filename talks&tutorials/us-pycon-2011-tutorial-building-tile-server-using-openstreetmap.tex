@@ -1,5 +1,6 @@
 \documentclass{beamer}
 
+\usepackage{amsmath}
 \usepackage{mathtools}
 
 \begin{document}
@@ -10,40 +11,129 @@
 
 \maketitle
 
+\section{Objectives and prerequisites}
+
 \begin{frame}{What will you learn?}
   \begin{itemize}
   \item Cartography basics
-  \item How to render cartography imagery with Mapnik
-  \item How to build basic cartography web service with Werkzeug
+  \item How to render maps with Mapnik
+  \item How to build basic map service with Flask
   \end{itemize}
 \end{frame}
 
 \begin{frame}{First of all}
   \begin{itemize}
   \item Grab the CD or flash with all the data from me
-  \item Copy the content somewhere
-  \item Get prepared
+  \item Use materials at content.mishkovskyi.net/pycon2011
+  \item Or use handouts
   \end{itemize}
 \end{frame}
 
 \section{Introduction}
 
-\subsection{GIS basics}
+\subsection{Terms, definitions and classification}
 
-\begin{frame}{What is GIS}
-  Geographical information system
-  Collect, analyze and manage data that can be linked to location.
-  Collect hence cartography
-  Analyze statistical analysis
-  Manage hence database
-  GIS stands somewhere between cartography, statistical analysis and software engineering
+\begin{frame}
+  \frametitle{Terms}
+  \begin{description}
+  \item[Map] Graphic representation of the geographical setting
+  \item[Cartography] Science and practice of making maps
+  \item[GIS] A system that collects, analyzes, manages or processes in any other way data linked to location.
+  \end{description}
 \end{frame}
 
-\begin{frame}{Collecting data}
-  GPS devices
-  Aerial photography
-  Survey
-  etc
+\begin{frame}
+  \frametitle{Applications of GIS}
+  \begin{itemize}
+  \item Geography
+  \item Cartography
+  \item Navigation
+  \item Search engines
+  \item Remote sensing, land surveying, urban planning \ldots{}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Characteristics of maps}
+  \begin{itemize}
+  \item<1-> Reduction \uncover<2->{\(\implies\) Scale}
+  \item<3-> Transformation \uncover<4->{\(\implies\) Map projection}
+  \item<5-> Abstractions \uncover<4->{\(\implies\) Symbolism}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Classification of maps}
+  \begin{itemize}
+  \item By scale -- small-scale world, large-scale your neighborhood
+  \item By function -- general reference, thematic, charts
+  \item By subject matter -- cadastre, plans
+  \end{itemize}
+\end{frame}
+
+  % Geographical information system
+  % Collect, analyze and manage data that can be linked to location.
+  % Collect hence cartography
+  % Analyze statistical analysis
+  % Manage hence database
+  % GIS stands somewhere between cartography, statistical analysis and software engineering
+
+\subsection{Geodata: storing, managing and processing }
+
+\begin{frame}
+  \frametitle{Classes of data}
+  \begin{itemize}
+  \item Physical (Topographical -- elevations, terrain \& water objects)
+  \item Cultural
+  \item Human-made
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Collecting data}
+  \begin{itemize}
+  \item Surveying
+  \item GPS tracks
+  \item Tracing aerial imagery
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Sources of data}
+  \begin{itemize}
+  \item Mapping companies (TeleAtlas, Navteq, Ordnance Survey)
+  \item Public sources (OpenStreetMap, Natural Earth)
+  \item Government institutions (NASA, local government)
+  \item Personal data (GPS tracks, social networks)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Storing data}
+  \begin{itemize}
+  \item RDBMS (PostgreSQL + PostGIS, MySQL Spatial, Oracle Spatial, Spatialite)
+  \item Non-relational databases (Neo4j, MongoDB, CouchDB)
+  \item Flat files (WKB, WKT, GeoJSON, KML, GML)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Simple Feature acess: SQL}
+  \begin{itemize}
+  \item Full set of querying functions
+  \item Tons of useful features for on-the-fly projecting etc.
+  \item Almost fully supported by PostGIS
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Other standards}
+  \begin{itemize}
+  \item Well-known text
+  \item Well-known binary
+  \item Geography Markup Language
+  \item Keyhole Markup Language
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Representing data}
@@ -138,8 +228,6 @@ lat,lon,tags
 \section{Rendering}
 
 
-
-\end{frame}
 
 
 \section{HTTP access}
