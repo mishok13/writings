@@ -7,9 +7,8 @@
 # by matt perry
 # 12/05/2005
 
-import ogr
+from osgeo import ogr, osr
 import os
-import osr
 
 output = 'tissot.shp'
 debug = False
@@ -17,7 +16,7 @@ debug = False
 # Create the Shapefile
 driver = ogr.GetDriverByName('ESRI Shapefile')
 if os.path.exists(output):
-        driver.DeleteDataSource(output)
+    driver.DeleteDataSource(output)
 ds = driver.CreateDataSource(output)
 layer = ds.CreateLayer(output, geom_type=ogr.wkbPolygon)
 
