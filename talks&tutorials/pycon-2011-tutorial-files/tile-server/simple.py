@@ -2,6 +2,7 @@
 
 
 import mapnik
+import sys
 
 
 projection = mapnik.Projection("+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 "
@@ -10,7 +11,7 @@ projection = mapnik.Projection("+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 "
 
 
 map = mapnik.Map(600, 600)
-mapnik.load_map(map, 'map.xml')
+mapnik.load_map(map, sys.argv[1])
 image = mapnik.Image(600, 600)
 coords = mapnik.Coord(-179.9999, -85), mapnik.Coord(179.9999, 85)
 bbox = mapnik.Envelope(projection.forward(coords[0]),
@@ -18,5 +19,5 @@ bbox = mapnik.Envelope(projection.forward(coords[0]),
 print bbox
 map.zoom_to_box(bbox)
 mapnik.render(map, image)
-with open('map.png', 'w') as f:
+with open(sys.argv[2], 'w') as f:
     f.write(image.tostring('png'))
