@@ -2,6 +2,12 @@
 
 \usepackage{amsmath}
 \usepackage{mathtools}
+\usepackage{listings}
+\usepackage{graphicx}
+
+\lstset{
+  basicstyle=\footnotesize\ttfamily
+}
 
 \begin{document}
 
@@ -10,6 +16,12 @@
 \date{March 2011}
 
 \maketitle
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+
 
 \section{Objectives and prerequisites}
 
@@ -71,12 +83,25 @@
   \end{itemize}
 \end{frame}
 
-  % Geographical information system
-  % Collect, analyze and manage data that can be linked to location.
-  % Collect hence cartography
-  % Analyze statistical analysis
-  % Manage hence database
-  % GIS stands somewhere between cartography, statistical analysis and software engineering
+
+\subsection{Projection}
+
+\begin{frame}
+  \frametitle{Projection}
+  Conversion of spherical information into 2d pane
+\end{frame}
+
+\begin{frame}
+  \frametitle{Characteristics of projection}
+  \begin{itemize}
+  \item Scale factor
+  \item Area distortion
+  \item Angle distortion
+  \end{itemize}
+\end{frame}
+
+
+
 
 \subsection{Geodata: storing, managing and processing }
 
@@ -133,167 +158,252 @@
   \item Well-known binary
   \item Geography Markup Language
   \item Keyhole Markup Language
+  \item Shapefiles
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Representing data}
-  Raster images -- heatmaps, staticmaps
-  Vector data
-  Textual (geocoding)
-\end{frame}
-
-\begin{frame}{Formats of data}
+\begin{frame}
+  \frametitle{How OSM handles data}
+  Special XML format used in
   \begin{itemize}
-  \item Well known binary/text
-  \item GeoJSON for unstructured data
-  \item GML
-  \item KML
+  \item Official API
+  \item Official plant extracts
+  \item Unofficial eXtended API (XAPI)
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Ways to store data}
-  PostGIS
-  MySQL Spatial
-  Oracle Spatial
-  MS SQL
+\subsection{OSM data}
+
+\begin{frame}[fragile]
+  \frametitle{How OSM XML looks like}
+  \lstinputlisting[language=XML]{osm-xml-overview.xml}
 \end{frame}
 
-\begin{frame}{Processing data in Python}
-  GDAL
-  Proj.4
-  Shapely
-  OGR
+\begin{frame}
+  \frametitle{Shortly describing each of those}
+  \begin{description}
+  \item[Node] Point
+  \item[Way] Roads
+  \item[Relation] Collection of different geometry features
+  \end{description}
 \end{frame}
 
-\subsection{OpenStreetMap}
-
-\begin{frame}{Data providers}
-  Data doesn't come from nowhere
-  Local governments, non-profit organizations, for-profit organizations
-Crowd-sourcing
+\begin{frame}
+  \frametitle{Nodes}
+  \lstinputlisting[language=XML]{osm-nodes-overview.xml}
 \end{frame}
 
-\begin{frame}{Crowd sourcing?}
-  Paid-for data can get expensive really fast
-  Non-profit organizations are the thing of the past
-  Government is rarely interested in high quality
+\begin{frame}
+  \frametitle{Ways}
+  \lstinputlisting[language=XML]{osm-ways-overview.xml}
 \end{frame}
 
-\begin{frame}{OpenStreetMap}
-  CC-by-SA license, switching to ODBL soon
-  350k users
-  Data quality greatly varies (depends on community)
+\begin{frame}
+  \frametitle{Relations}
+  \lstinputlisting[language=XML]{osm-relations-overview.xml}
 \end{frame}
 
-\begin{frame}{Data structure}
-highly unstructured
-lat,lon,tags
-\end{frame}
-
-\begin{frame}{Tag system}
-
-\end{frame}
-
-\begin{frame}{OSM API}
+\begin{frame}
+  \frametitle{Parsing OSM data}
   \begin{itemize}
-  \item basic structutre
-  \item transactional
-  \item requests
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{OSM XAPI}
-  \begin{itemize}
-  \item Unofficial
-  \item Large requests
-  \item Recommended
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Downloads}
-  \begin{itemize}
-  \item Planet.osm (whole world)
-  \item regions osm files (CloudMade, GeoFabrik)
-  \end{itemize}
-\end{frame}
-
-\begin{frame}{Handling data}
-  \begin{itemize}
-  \item osm2pgsql
   \item Osmosis
-  \item Write your own
+  \item osm2pgsql
+  \item tons of little scripts
   \end{itemize}
 \end{frame}
 
-\section{Rendering}
-
-
-
-
-\section{HTTP access}
-
-\begin{frame}{Access types}
-  WMS
-  WMTS
-  Short description follows
+\begin{frame}
+  \frametitle{osm2pgsql database}
+  Imports to PostgreSQL with the following tables
+  \begin{itemize}
+  \item point
+  \item line
+  \item polygon
+  \item nodes
+  \end{itemize}
 \end{frame}
 
-\begin{frame}{WMS}
+\begin{frame}
+  \frametitle{Fetching data from PostgreSQL}
+  \lstinputlisting{simple-sql-query.sql}[language=SQL]
+\end{frame}
+
+\begin{frame}
+  \frametitle{Limiting search by bounding box}
+  \lstinputlisting{sql-query-with-bbox.sql}[language=SQL]
+\end{frame}
+
+\begin{frame}
+  \frametitle{More silly examples}
+  \lstinputlisting{sql-examples.sql}[language=SQL]
+\end{frame}
+
+\section{Mapnik}
+
+\begin{frame}
+  \frametitle{What is Mapnik}
+  Rendering library for
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mapnik concepts}
+  \begin{itemize}
+  \item Style
+  \item Map
+  \item Rule
+  \item Layer
+  \item Datasource
+  \end{itemize}
+\end{frame}
+
+\subsection{Pure Python rendering}
+
+\begin{frame}
+  \frametitle{Rendering map}
 
 \end{frame}
 
-Let's see our first example
-...
-Looks scary, but do not fear, we'll go through every part of this nice and easy
 
-First of all, let's look at the line with the projection. It conforms to the
-previously discussed way of producing projection descriptions used by Proj.4
+\begin{frame}
+  \frametitle{Creating style}
 
-TODO: actual descriptions prior to this
+\end{frame}
 
-Then, there's a simple Map creation mechanism. Map contains so called layers,
-which define the way the image layers are stacked and styles, which are named
-collections of rules, which describe the way geographical features are going
-to be represented
+\begin{frame}
+  \frametitle{Creating layer}
 
-Layers
+\end{frame}
 
-In classic cartography layers represent the actual physical layer. That is,
-layers correspond to the topographic view
+\begin{frame}
+  \frametitle{Linking layers and styles}
 
-Styles
+\end{frame}
 
-Styles are set of rules
+\begin{frame}
+  \frametitle{Selecting area to render}
 
-Rules
+\end{frame}
 
-They define the way geographical features get rendered in the image, within
-the given scale.
+\subsection{Simplifying matters with XML}
+
+\begin{frame}
+  \frametitle{Overview of map file in XML}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Defining styles in XML}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Defining rules in XML}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Defining layers in XML}
+
+\end{frame}
+
+\subsection{Real world example}
+
+\begin{frame}
+  \frametitle{Fonts and fontsets}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Including PostGIS datasources}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Changing level of details aka zoom levels}
+
+\end{frame}
+
+\begin{frame}
+  \frametitle{Adding roads}
+
+\end{frame}
+
+
+\begin{frame}
+  \frametitle{Adding POIs}
+
+\end{frame}
+
+
+\section{Imagery server}
+
+\begin{frame}
+  \frametitle{API}
+
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Hello world API}
+  \ttfamily{http://localhost:5000/}
+  \begin{centering}
+    \includegraphics[scale=1.0]{simple-map.png}
+  \end{centering}
+\end{frame}
+
+
+
+% Let's see our first example
+% ...
+% Looks scary, but do not fear, we'll go through every part of this nice and easy
+
+% First of all, let's look at the line with the projection. It conforms to the
+% previously discussed way of producing projection descriptions used by Proj.4
+
+% TODO: actual descriptions prior to this
+
+% Then, there's a simple Map creation mechanism. Map contains so called layers,
+% which define the way the image layers are stacked and styles, which are named
+% collections of rules, which describe the way geographical features are going
+% to be represented
+
+% Layers
+
+% In classic cartography layers represent the actual physical layer. That is,
+% layers correspond to the topographic view
+
+% Styles
+
+% Styles are set of rules
+
+% Rules
+
+% They define the way geographical features get rendered in the image, within
+% the given scale.
 
 
 
 
-Mapnik
-Style file, layers and datasources
-Fonts
-Symbolizers
+% Mapnik
+% Style file, layers and datasources
+% Fonts
+% Symbolizers
 
-To tile server
+% To tile server
 
-WMS
-Tile API
-Different ways
-Google, Bing, Mapquest, Yahoo
-Building tile server from scratch
-Staticmaps
+% WMS
+% Tile API
+% Different ways
+% Google, Bing, Mapquest, Yahoo
+% Building tile server from scratch
+% Staticmaps
 
-Flask + Mapnik
+% Flask + Mapnik
 
-Changing styles on the fly
-Staticmaps
-Get tiles in bounding box
+% Changing styles on the fly
+% Staticmaps
+% Get tiles in bounding box
 
 
-http://msdn.microsoft.com/en-us/library/bb259689.aspx
+% http://msdn.microsoft.com/en-us/library/bb259689.aspx
 
 \end{document}
