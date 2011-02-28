@@ -4,165 +4,21 @@
 	  +units=m +nadgrids=@null +no_defs +over"
      bgcolor="#98bcda">
 
-  <FontSet name="motorway-fonts">
-    <Font face_name="DejaVu Sans Oblique"/>
-    <Font face_name="unifont Medium"/>
-  </FontSet>
-  <FontSet name="primary-fonts">
-    <Font face_name="DejaVu Sans Bold"/>
-    <Font face_name="unifont Medium"/>
-  </FontSet>
-
-  <Style name="world">
-    <Rule>
-      <PolygonSymbolizer>
-        <CssParameter name="fill">#eae8dd</CssParameter>
-      </PolygonSymbolizer>
-    </Rule>
-  </Style>
-
-  <Style name="borders">
-    <Rule>
-      <LineSymbolizer>
-	<CssParameter name="stroke">black</CssParameter>
-	<CssParameter name="stroke-dasharray">6,3</CssParameter>
-      </LineSymbolizer>
-    </Rule>
-  </Style>
-
-  <Style name="roads-casing">
-    <Rule>
-      <Filter>[highway]='motorway' or [highway]='motorway_link' or
-      [highway]='trunk' or [highway]='trunk_link' or
-      [highway]='primary' or [highway]='primary_link'</Filter>
-      <LineSymbolizer>
-	<CssParameter name="stroke">green</CssParameter>
-	<CssParameter name="stroke-width">8</CssParameter>
-        <CssParameter name="stroke-linejoin">round</CssParameter>
-        <CssParameter name="stroke-linecap">round</CssParameter>
-      </LineSymbolizer>
-    </Rule>
-  </Style>
-
-  <Style name="roads">
-    <Rule>
-      <Filter>[highway]='motorway' or [highway]='motorway_link' or
-      [highway]='trunk' or [highway]='trunk_link'</Filter>
-      <LineSymbolizer>
-	<CssParameter name="stroke">red</CssParameter>
-	<CssParameter name="stroke-width">7</CssParameter>
-        <CssParameter name="stroke-linejoin">round</CssParameter>
-        <CssParameter name="stroke-linecap">round</CssParameter>
-      </LineSymbolizer>
-    </Rule>
-    <Rule>
-      <Filter>[highway]='primary' or [highway]='primary_link'</Filter>
-      <LineSymbolizer>
-	<CssParameter name="stroke">blue</CssParameter>
-	<CssParameter name="stroke-width">7</CssParameter>
-        <CssParameter name="stroke-linejoin">round</CssParameter>
-        <CssParameter name="stroke-linecap">round</CssParameter>
-      </LineSymbolizer>
-    </Rule>
-  </Style>
-
-  <Style name="roads-text">
-    <Rule>
-      <Filter>[highway]='motorway' or [highway]='motorway_link' or
-      [highway]='trunk' or [highway]='trunk_link'</Filter>
-      <TextSymbolizer name="name" fontset_name="motorway-fonts"
-		      size="8" spacing="32" fill="#000000"
-		      avoid_edges="false" placement="line"
-		      halo_fill="white" halo_radius="1"/>
-    </Rule>
-    <Rule>
-      <Filter>[highway]='primary' or [highway]='primary_link'</Filter>
-      <TextSymbolizer name="name" fontset_name="primary-fonts"
-		      size="8" spacing="32" fill="#000000"
-		      avoid_edges="false" placement="line"
-		      halo_fill="white" halo_radius="1"/>
-    </Rule>
-  </Style>
-
   <Style name="buildings">
     <Rule>
       <MaxScaleDenominator>25000</MaxScaleDenominator>
       <MinScaleDenominator>1</MinScaleDenominator>
       <PolygonSymbolizer>
-        <CssParameter name="fill">brown</CssParameter>
+	<CssParameter name="fill">brown</CssParameter>
+      </PolygonSymbolizer>
+    </Rule>
+    <Rule>
+      <MaxScaleDenominator>50000</MaxScaleDenominator>
+      <MinScaleDenominator>25000</MinScaleDenominator>
+      <PolygonSymbolizer>
+	<CssParameter name="fill">pink</CssParameter>
       </PolygonSymbolizer>
     </Rule>
   </Style>
-
-  <Layer name="world"
-	 srs="+proj=longlat +ellps=WGS84
-	      +datum=WGS84 +no_defs">
-    <StyleName>world</StyleName>
-    <Datasource>
-      <Parameter name="type">shape</Parameter>
-      <Parameter name="file">tile-server/coastlines/10m_land</Parameter>
-    </Datasource>
-  </Layer>
-
-  <Layer name="borders" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over">
-    <StyleName>borders</StyleName>
-    <Datasource>
-      <Parameter name="type">postgis</Parameter>
-      <Parameter name="host">localhost</Parameter>
-      <Parameter name="port">5432</Parameter>
-      <Parameter name="user">osm</Parameter>
-      <Parameter name="dbname">gis</Parameter>
-      <Parameter name="table">(SELECT way FROM planet_osm_line
-      WHERE "boundary"='administrative') as borders</Parameter>
-      <Parameter name="estimate_extent">false</Parameter>
-      <Parameter name="extent">-20037508,-19929239,20037508,19929239</Parameter>
-    </Datasource>
-  </Layer>
-
-  <Layer name="roads" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over">
-    <StyleName>roads-casing</StyleName>
-    <StyleName>roads</StyleName>
-    <Datasource>
-      <Parameter name="type">postgis</Parameter>
-      <Parameter name="host">localhost</Parameter>
-      <Parameter name="port">5432</Parameter>
-      <Parameter name="user">osm</Parameter>
-      <Parameter name="dbname">gis</Parameter>
-      <Parameter name="table">(SELECT way, highway FROM planet_osm_line
-      WHERE "highway" IS NOT NULL) as roads</Parameter>
-      <Parameter name="estimate_extent">false</Parameter>
-      <Parameter name="extent">-20037508,-19929239,20037508,19929239</Parameter>
-    </Datasource>
-  </Layer>
-
-  <Layer name="roads-text" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over">
-    <StyleName>roads-text</StyleName>
-    <Datasource>
-      <Parameter name="type">postgis</Parameter>
-      <Parameter name="host">localhost</Parameter>
-      <Parameter name="port">5432</Parameter>
-      <Parameter name="user">osm</Parameter>
-      <Parameter name="dbname">gis</Parameter>
-      <Parameter name="table">(SELECT way, highway, name FROM planet_osm_line
-      WHERE "highway" IS NOT NULL) as roads_text</Parameter>
-      <Parameter name="estimate_extent">false</Parameter>
-      <Parameter name="extent">-20037508,-19929239,20037508,19929239</Parameter>
-    </Datasource>
-  </Layer>
-
-  <Layer name="buildings" srs="+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0 +k=1.0 +units=m +nadgrids=@null +no_defs +over">
-    <StyleName>buildings</StyleName>
-    <Datasource>
-      <Parameter name="type">postgis</Parameter>
-      <Parameter name="host">localhost</Parameter>
-      <Parameter name="port">5432</Parameter>
-      <Parameter name="user">osm</Parameter>
-      <Parameter name="dbname">gis</Parameter>
-      <Parameter name="table">(SELECT way FROM planet_osm_polygon
-      WHERE "building" IS NOT NULL) as borders</Parameter>
-      <Parameter name="estimate_extent">false</Parameter>
-      <Parameter name="extent">-20037508,-19929239,20037508,19929239</Parameter>
-    </Datasource>
-  </Layer>
 
 </Map>
