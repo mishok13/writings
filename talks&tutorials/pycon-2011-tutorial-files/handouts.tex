@@ -4,6 +4,8 @@
 \usepackage{color}
 \usepackage{courier}
 \usepackage{graphicx}
+\usepackage{hyperref}
+
 
 
 \lstset{ %
@@ -200,7 +202,10 @@ possible for the projection to be both conformal and equivalent.
   into general cartography framework.
 \end{description}
 
-The following is a set of code examples used in tutorial.
+The following is a set of code examples used in tutorial. Please
+note that most of the examples are subject to change and are basically
+giving the idea of the what is going to be shown, rather than the
+actual reality.
 
 \subsection{Using Mapnik's Python bindings}
 \label{sec:using-mapniks-python}
@@ -265,108 +270,97 @@ the tile server.
 \subsection{Extending Mapnik map file}
 \label{sec:extending-mapnik-map}
 
+Most of the time Mapnik users are working with XML, either directly
+or through helper tools, such as Cascadenik. I'm going to give
+overview of extending raw map files.
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=XML]{countries.xml}
-  \caption{Adding more to XML}
-  \label{fig:xml-more}
-\end{figure}
+First of all, let's add our first PostGIS datasource. We are going
+to render administrative boundaries.
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=XML]{roads.xml}
-  \caption{Adding roads to XML}
-  \label{fig:xml-roads}
-\end{figure}
+\begin{centering}
+    \lstinputlisting[language=XML]{countries.xml}
+\end{centering}
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=XML]{roads2.xml}
-  \caption{Adding roads to XML (continued)}
-  \label{fig:xml-roads}
-\end{figure}
+When adding roads, there is a little trick that you need to know
+if you want to create more styles on your own.
 
-\begin{figure}[h]
-  \centering
+\begin{centering}
+    \lstinputlisting[language=XML]{roads.xml}
+\end{centering}
+
+Roads are nothing without a proper name for them. Let's add our first
+TextSymbolizer!
+
+\begin{centering}
   \lstinputlisting[language=XML]{roadnames.xml}
-  \caption{Adding road names to XML}
-  \label{fig:xml-road-names}
-\end{figure}
+\end{centering}
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=XML]{roadnames2.xml}
-  \caption{Adding road names to XML (continued)}
-  \label{fig:xml-road-names}
-\end{figure}
+To add more context to the road network buildings will be added.
 
-\begin{figure}[h]
-  \centering
+\begin{centering}
   \lstinputlisting[language=XML]{polygons.xml}
-  \caption{Adding buildings and parks}
-  \label{fig:xml-polygons}
-\end{figure}
+\end{centering}
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=XML]{zooms.xml}
-  \caption{Adding zoom levels}
-  \label{fig:xml-zooms}
-\end{figure}
+The final, but quite important example is showing how we can limit
+amount of details on the map depending on its scale.
+
+\begin{centering}
+    \lstinputlisting[language=XML]{zooms.xml}
+\end{centering}
+
 
 \pagebreak
 
 \section{HTTP API}
 \label{sec:http-api}
 
-\begin{figure}[h]
-  \centering
+These examples show sketch-like approach to building cartography imagery servers.
+More examples will follow in the tutorial itself.
+
+\subsection{Hello World of imagery servers}
+\label{sec:hellow-world-imagery}
+
+Basic server which has one endpoint and renders a map on request.
+
+\begin{centering}
   \lstinputlisting[language=Python]{basic_server.py}
-  \caption{Simple map API}
-  \label{fig:simple-server}
-\end{figure}
+\end{centering}
 
-\begin{figure}
-  \centering
-  \lstinputlisting[language=Python]{utils_initial.py}
-  \caption{utils module}
-  \label{fig:utils-module}
-\end{figure}
+Initial state of utils module for the server.
 
-\begin{figure}
-  \centering
-  \lstinputlisting[language=Python]{server_staticmaps.py}
-  \caption{Adding staticmaps rendering}
-  \label{fig:staticmaps-rendering}
-\end{figure}
+\begin{centering}
+    \lstinputlisting[language=Python]{utils_initial.py}
+\end{centering}
 
-\begin{figure}
-  \centering
-  \lstinputlisting[language=Python]{server_tile.py}
-  \caption{Tile rendering}
-  \label{fig:tile-rendering}
-\end{figure}
+\subsection{Adding more functionality}
+\label{sec:adding-more-funct}
 
-\begin{figure}
-  \centering
-  \lstinputlisting[language=Python]{utils_tile.py}
-  \caption{utils module updates}
-  \label{fig:tile-utils}
-\end{figure}
+The example shows how staticmaps functionality can be added to imagery server.
+
+\begin{centering}
+    \lstinputlisting[language=Python]{server_staticmaps.py}
+\end{centering}
+
+Adding tiles support is now pretty easy.
+
+\begin{centering}
+    \lstinputlisting[language=Python]{server_tile.py}
+\end{centering}
+\begin{centering}
+    \lstinputlisting[language=Python]{utils_tile.py}
+\end{centering}
 
 \pagebreak
 
-\section{References}
+\section{Sources}
 
-% On projections and srs
-% http://www.sharpgis.net/post/2007/05/Spatial-references2c-coordinate-systems2c-projections2c-datums2c-ellipsoids-e28093-confusing.aspx
-% http://spatialreference.org/
-% http://proj.maptools.org/gen_parms.html
-% http://trac.osgeo.org/proj/wiki/GenParms
-% http://trac.mapnik.org/wiki/IntroductionToGIS
-% http://en.wikipedia.org/wiki/Winkel_Tripel_projection
-
-
+\begin{itemize}
+\item \url{http://trac.mapnik.org/}
+\item \url{http://www.sharpgis.net/post/2007/05/Spatial-references2c-coordinate-systems2c-projections2c-datums2c-ellipsoids-e28093-confusing.aspx}
+\item \url{http://spatialreference.org/}
+\item \url{http://proj.maptools.org/}
+\item \url{http://flask.pocoo.org/}
+\item ``Elements of Cartography'' by Robinson et al.
+\end{itemize}
 
 \end{document}
