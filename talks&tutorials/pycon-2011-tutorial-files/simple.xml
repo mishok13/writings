@@ -12,15 +12,13 @@
     </Rule>
   </Style>
 
-
-
   <Layer name="world"
 	 srs="+proj=longlat +ellps=WGS84
 	      +datum=WGS84 +no_defs">
     <StyleName>world</StyleName>
     <Datasource>
       <Parameter name="type">shape</Parameter>
-      <Parameter name="file">tile-server/coastlines/10m_land</Parameter>
+      <Parameter name="file">coastlines/land</Parameter>
     </Datasource>
   </Layer>
 

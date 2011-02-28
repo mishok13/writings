@@ -5,6 +5,7 @@
 \usepackage{courier}
 \usepackage{graphicx}
 
+
 \lstset{ %
 % language=Octave,                % choose the language of the code
 basicstyle=\ttfamily,       % the size of the fonts that are used for the code
@@ -199,70 +200,71 @@ possible for the projection to be both conformal and equivalent.
   into general cartography framework.
 \end{description}
 
-\subsection{Rendering with pure Python}
-\label{sec:rendering-with-pure}
+The following is a set of code examples used in tutorial.
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=Python]{simple.py}
-  \caption{Hello world with Mapnik}
-  \label{fig:1}
-\end{figure}
+\subsection{Using Mapnik's Python bindings}
+\label{sec:using-mapniks-python}
 
-\subsection{Python for code, XML for configuration}
-\label{sec:python-code-xml}
+This example shows basic ``Hello World''-like application using Mapnik.
 
-\begin{figure}[h]
-  \centering
+\begin{centering}
+    \lstinputlisting[language=Python]{hw.py}
+\end{centering}
+
+Let's offset the layering and styling of the map to XML, rather than using code
+for this.
+
+\begin{centering}
   \lstinputlisting[language=Python]{simple_xml.py}
-  \caption{Ofsetting work to XML}
-  \label{fig:hw-py}
-\end{figure}
+\end{centering}
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=XML]{simple.xml}
-  \caption{Hello world with XML}
-  \label{fig:hw-xml}
-\end{figure}
+\begin{centering}
+    \lstinputlisting[language=XML]{simple.xml}
+\end{centering}
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=Python]{simple_almost_fixed.py}
-  \caption{Fixing rendering}
-  \label{fig:hw-py-almost-fixed}
-\end{figure}
+\subsection{Understanding projections}
+\label{sec:underst-proj}
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=Python]{explaining_bounds.py}
-  \caption{Explaining bounds}
-  \label{fig:hw-py-corrected-and-explaining}
-\end{figure}
+As can be seen in the previous example, map will lack any continents
+whatsoever. To fix this, let's remember what projections are and
+learn how to handle them.
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=Python]{simple_fixed.py}
-  \caption{Correcting bounds}
-  \label{fig:hw-py-corrected}
-\end{figure}
+\begin{centering}
+    \lstinputlisting[language=Python]{simple_almost_fixed.py}
+\end{centering}
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=Python]{projecting_coords.py}
-  \caption{Explaining bounds}
-  \label{fig:hw-py-projecting-coords}
-\end{figure}
+The previous example does not completely fix the issue. Let's see
+how we can make this better.
 
-\begin{figure}[h]
-  \centering
-  \lstinputlisting[language=Python]{simple_refactored.py}
-  \caption{Refactoring Mapnik code}
-  \label{fig:hw-refactoring}
-\end{figure}
+\begin{centering}
+    \lstinputlisting[language=Python]{simple_fixed.py}
+\end{centering}
 
-\subsection{Adding more meat to XML}
-\label{sec:adding-more-meat}
+It is not really clear why exactly these coordinates have been chosen
+in the example. The following code makes it a little bit more clear.
+
+\begin{centering}
+    \lstinputlisting[language=Python]{explaining_bounds.py}
+\end{centering}
+
+Let's take a bit more general approach to selecting bounding
+boxes.
+
+\begin{centering}
+    \lstinputlisting[language=Python]{projecting_coords.py}
+\end{centering}
+
+And the last step with this example will be refactoring, which
+will make our code snippets usable later, when we start writing
+the tile server.
+
+\begin{centering}
+    \lstinputlisting[language=Python]{simple_refactored.py}
+\end{centering}
+
+\subsection{Extending Mapnik map file}
+\label{sec:extending-mapnik-map}
+
 
 \begin{figure}[h]
   \centering
@@ -280,8 +282,22 @@ possible for the projection to be both conformal and equivalent.
 
 \begin{figure}[h]
   \centering
+  \lstinputlisting[language=XML]{roads2.xml}
+  \caption{Adding roads to XML (continued)}
+  \label{fig:xml-roads}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
   \lstinputlisting[language=XML]{roadnames.xml}
   \caption{Adding road names to XML}
+  \label{fig:xml-road-names}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+  \lstinputlisting[language=XML]{roadnames2.xml}
+  \caption{Adding road names to XML (continued)}
   \label{fig:xml-road-names}
 \end{figure}
 
@@ -299,57 +315,47 @@ possible for the projection to be both conformal and equivalent.
   \label{fig:xml-zooms}
 \end{figure}
 
-% \section{Rendering}
+\pagebreak
 
-% \subsection{Perception}
+\section{HTTP API}
+\label{sec:http-api}
 
-% In case with cartography a careful approach is preferred when choosing
-% color scheme. Not only color outlines main features of the map, but also
-% helps achieve the goal of being accessible for everybody.
+\begin{figure}[h]
+  \centering
+  \lstinputlisting[language=Python]{basic_server.py}
+  \caption{Simple map API}
+  \label{fig:simple-server}
+\end{figure}
 
-% \subsection{Simple Mapnik rendering}
+\begin{figure}
+  \centering
+  \lstinputlisting[language=Python]{utils_initial.py}
+  \caption{utils module}
+  \label{fig:utils-module}
+\end{figure}
 
-% This is a short example which creates basic map object, applies simple styling
-% rules and provides a datasource.
+\begin{figure}
+  \centering
+  \lstinputlisting[language=Python]{server_staticmaps.py}
+  \caption{Adding staticmaps rendering}
+  \label{fig:staticmaps-rendering}
+\end{figure}
 
-% \lstinputlisting{simple-rendering.py}
+\begin{figure}
+  \centering
+  \lstinputlisting[language=Python]{server_tile.py}
+  \caption{Tile rendering}
+  \label{fig:tile-rendering}
+\end{figure}
 
-% Let's outline several points here.
+\begin{figure}
+  \centering
+  \lstinputlisting[language=Python]{utils_tile.py}
+  \caption{utils module updates}
+  \label{fig:tile-utils}
+\end{figure}
 
-% Creation of map
-
-% Creating and applying styles
-
-% Attaching datasources
-
-% Rendering
-
-% \subsection{Simple Mapnik XML}
-
-% Of course, defining such logic in code is not only cumbersome, but also makes
-% such tasks as serialization and changing Mapnik styles on the fly
-
-% \lstinputlisting{simple.xml}
-
-% IMAGE
-
-% Adding Tissot's indicatrix
-
-% \lstinputlisting{tissot-indicatrix.xml}
-
-% IMAGE
-
-% Viewing in different projection
-
-% \lstinputlisting{tissot-indicatrix-mercator.xml}
-
-% IMAGE
-
-% \lstinputlisting{tissot-indicatrix-mercator.xml}
-
-% IMAGE
-
-
+\pagebreak
 
 \section{References}
 
