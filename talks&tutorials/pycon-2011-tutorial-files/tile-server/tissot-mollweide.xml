@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Map srs="+proj=laea +lat_0=45 +lon_0=-100 +x_0=0 +y_0=0 +a=6370997 +b=6370997 +units=m +no_defs" bgcolor="#98bcda">
+<Map srs="+proj=moll +x_0=0 +y_0=0 +a=6371000 +b=6371000 +units=m +no_defs" bgcolor="#98bcda">
 
   <Style name="world">
     <Rule>
       <PolygonSymbolizer>
-	<CssParameter name="fill">#eae8dd</CssParameter>
+	<CssParameter name="fill">grey</CssParameter>
       </PolygonSymbolizer>
     </Rule>
   </Style>
@@ -22,7 +22,7 @@
     <StyleName>world</StyleName>
     <Datasource>
       <Parameter name="type">shape</Parameter>
-      <Parameter name="file">coastlines/10m_land</Parameter>
+      <Parameter name="file">coastlines/110m_land</Parameter>
     </Datasource>
   </Layer>
 

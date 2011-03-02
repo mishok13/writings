@@ -17,12 +17,6 @@
 
 \maketitle
 
-\begin{frame}
-  \frametitle{Outline}
-  \tableofcontents
-\end{frame}
-
-
 \section{Objectives and prerequisites}
 
 \begin{frame}{What will you learn?}
@@ -41,9 +35,14 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+
 \section{Introduction}
 
-\subsection{Terms, definitions and classification}
+\subsection{Definitions}
 
 \begin{frame}
   \frametitle{Terms}
@@ -84,7 +83,7 @@
 \end{frame}
 
 
-\subsection{Projection}
+\subsection{Map projections}
 
 \begin{frame}
   \frametitle{Projection}
@@ -110,8 +109,10 @@
 
 \begin{frame}
   \frametitle{Tissot indicatrix}
-  A way of indicating distortions of the map by using
-  a projection of small
+  Graphic representation of map projection distortions.
+  \begin{center}
+    \includegraphics[scale=0.6]{pycon-2011-tutorial-files/indicatrix.png}
+  \end{center}
 \end{frame}
 
 \begin{frame}
@@ -129,7 +130,7 @@
 
 \end{frame}
 
-\subsection{Geodata: storing, managing and processing }
+\subsection{Spatial data}
 
 \begin{frame}
   \frametitle{Classes of data}
@@ -141,21 +142,21 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Collecting data}
-  \begin{itemize}
-  \item Surveying
-  \item GPS tracks
-  \item Tracing aerial imagery
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
   \frametitle{Sources of data}
   \begin{itemize}
   \item Mapping companies (TeleAtlas, Navteq, Ordnance Survey)
   \item Public sources (OpenStreetMap, Natural Earth)
   \item Government institutions (NASA, local government)
   \item Personal data (GPS tracks, social networks)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Collecting data}
+  \begin{itemize}
+  \item Surveying
+  \item GPS tracks
+  \item Tracing aerial imagery
   \end{itemize}
 \end{frame}
 
@@ -198,19 +199,21 @@
   \end{itemize}
 \end{frame}
 
-\subsection{OSM data}
-
 \begin{frame}[fragile]
   \frametitle{How OSM XML looks like}
   \lstinputlisting[language=XML]{osm-xml-overview.xml}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Shortly describing each of those}
+  \frametitle{Data primitives}
   \begin{description}
-  \item[Node] Point
-  \item[Way] Roads
-  \item[Relation] Collection of different geometry features
+  \item[Node] Stands for one geospatial point.
+  \item[Way] Collection of nodes. Can be used to represent
+    such geometric features as lines (roads, borders, etc)
+    and polygons (parks, buildings, etc.).
+  \item[Relation] Collection of other primitives (including
+    relations themselves). Used for storing complex
+    relationships between geospatial objects.
   \end{description}
 \end{frame}
 
@@ -273,22 +276,31 @@
 
 \begin{frame}
   \frametitle{Mapnik concepts}
-  \begin{itemize}
-  \item Style
-  \item Map
-  \item Rule
-  \item Layer
-  \item Datasource
-  \end{itemize}
+  \begin{description}
+  \item[Rule] Collection of drawing rules for various data inputs.
+  \item[Style] Collection of rules. Exists mostly of convenience
+    for defining layers.
+  \item[Datasource] Source of geospatial data.
+  \item[Layer] Link between datasource and styles
+  \end{description}
+  % \item Style
+  % \item Map
+  % \item Rule
+  % \item Layer
+  % \item Datasource
+  % \end{itemize}
 \end{frame}
 
-\subsection{Pure Python rendering}
+\subsection{Hello World in Mapnik}
 
 \begin{frame}
   \frametitle{Rendering map}
-
+import
+style and rules
+layer
+map
+rendering
 \end{frame}
-
 
 \begin{frame}
   \frametitle{Creating style}
@@ -310,7 +322,7 @@
 
 \end{frame}
 
-\subsection{Simplifying matters with XML}
+\subsection{Mapnik map files}
 
 \begin{frame}
   \frametitle{Overview of map file in XML}
@@ -362,6 +374,16 @@
 
 
 \section{Imagery server}
+
+\subsection{Simple map requests}
+
+
+
+\subsection{Tile API}
+
+\subsection{Additional APIs}
+
+
 
 \begin{frame}
   \frametitle{API}
