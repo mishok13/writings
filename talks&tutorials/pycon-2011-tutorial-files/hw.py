@@ -1,8 +1,11 @@
-from mapnik import *
+from mapnik import (PolygonSymbolizer, LineSymbolizer,
+                    Rule, Style, Color,
+                    Layer, Shapefile,
+                    Map, Image, render)
 
 rule = Rule()
-rule.symbols.append(PolygonSymbolizer(Color("black")))
-rule.symbols.append(LineSymbolizer(Color("grey"), 0.1))
+rule.symbols.append(PolygonSymbolizer(Color("grey")))
+rule.symbols.append(LineSymbolizer(Color("black"), 0.1))
 
 style = Style()
 style.rules.append(rule)
@@ -12,6 +15,7 @@ layer.datasource = Shapefile(file='coastlines/land')
 layer.styles.append('world')
 
 m = Map(800, 400)
+m.background = Color('white')
 m.append_style('world', style)
 m.layers.append(layer)
 

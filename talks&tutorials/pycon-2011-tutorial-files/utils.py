@@ -11,7 +11,7 @@ def project(coords, projection):
     return bbox.forward(projection)
 
 
-def render_map(map, bbox, width, height):
+def render(map, bbox, width, height):
     """Render a map within a given bounding box and size"""
     map.resize(width, height)
     map.zoom_to_box(bbox)

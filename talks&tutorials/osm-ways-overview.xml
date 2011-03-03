@@ -1,2 +1,11 @@
-<way id="12312312">
+<way id="11231">
+  <nd ref="17281" />
+  <nd ref="17282" />
+  <nd ref="17283" />
+  <nd ref="17284" />
+  <nd ref="17281" />
+  <tag k="addr:housenumber" v="265" />
+  <tag k="tourism" v="hotel" />
+  <tag k="name" v="Hyatt Regency" />
+  <tag k="building" v="yes" />
 </way>

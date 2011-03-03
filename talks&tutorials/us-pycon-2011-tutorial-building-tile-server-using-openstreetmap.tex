@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[17pt]{beamer}
 
 \usepackage{amsmath}
 \usepackage{mathtools}
@@ -6,7 +6,8 @@
 \usepackage{graphicx}
 
 \lstset{
-  basicstyle=\footnotesize\ttfamily
+  basicstyle=\footnotesize\ttfamily,
+  showstringspaces=false
 }
 
 \begin{document}
@@ -16,6 +17,29 @@
 \date{March 2011}
 
 \maketitle
+
+% \AtBeginSection[] % Do nothing for \section*
+% {
+%   \begin{frame}<beamer>
+%     \frametitle{Outline}
+%     \tableofcontents[currentsection]
+%   \end{frame}
+% }
+
+\AtBeginSubsection[] % Do nothing for \subsection*
+{
+  \begin{frame}<beamer>
+    \frametitle{Outline}
+    \tableofcontents[currentsubsection]
+  \end{frame}
+}
+
+\section*{Outline}
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
 
 \section{Objectives and prerequisites}
 
@@ -33,11 +57,6 @@
   \item Use materials at content.mishkovskyi.net/pycon2011
   \item Or use handouts
   \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Outline}
-  \tableofcontents
 \end{frame}
 
 \section{Introduction}
@@ -109,25 +128,63 @@
 
 \begin{frame}
   \frametitle{Tissot indicatrix}
-  Graphic representation of map projection distortions.
+  \begin{block}{Representation of map distortions}
+    \begin{center}
+      \includegraphics[scale=0.5]{pycon-2011-tutorial-files/indicatrix.png}
+    \end{center}
+  \end{block}
+  \begin{block}{Distortions}
+    \begin{description}
+    \item[Linear] If $OA \neq OA'$ or $OB \neq OB'$
+    \item[Angle]
+    \item[Area] $OB' \times OA \neq OA \times OB'$
+    \end{description}
+
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Mercator projection}
+\only<2>{
   \begin{center}
-    \includegraphics[scale=0.6]{pycon-2011-tutorial-files/indicatrix.png}
+    \begin{block}{Description}
+      \begin{itemize}
+      \item Conformal cylindrical projection
+      \item No angle distortion
+      \item Major area and linear distortion around poles
+      \item Historically used for navigation
+      \end{itemize}
+    \end{block}
   \end{center}
+}
+\only<1>{
+  \begin{block}{Tissot's indicatrix}
+    \begin{center}
+      \includegraphics[scale=0.25]{pycon-2011-tutorial-files/merc-indicatrix.png}
+    \end{center}
+  \end{block}
+}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Mercator indicatrix}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{US National indicatrix}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Mollweide indicatrix}
-
+  \frametitle{Mollweide Projection}
+\only<2>{
+  \begin{block}{Description}
+    \begin{itemize}
+    \item Pseudocylindrical equal-area projection
+    \item Serious linear and angle distortion
+    \item Useful where area size is important (global distributions, visual
+      area size comparison, etc)
+    \end{itemize}
+  \end{block}
+}
+\only<1>{
+  \begin{block}{Tissot's indicatrix}
+    \begin{center}
+      \includegraphics[scale=0.25]{pycon-2011-tutorial-files/moll-indicatrix.png}
+    \end{center}
+  \end{block}
+}
 \end{frame}
 
 \subsection{Spatial data}
@@ -181,11 +238,10 @@
 \begin{frame}
   \frametitle{Other standards}
   \begin{itemize}
-  \item Well-known text
-  \item Well-known binary
-  \item Geography Markup Language
+  \item Well-known text/binary
   \item Keyhole Markup Language
-  \item Shapefiles
+  \item Geography Markup Language
+  \item Esri Shapefiles
   \end{itemize}
 \end{frame}
 
@@ -199,22 +255,22 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}[t]
+  \frametitle{OSM data primitives}
+  \begin{description}
+  \item[Node] \only<1>{Stands for one geospatial point.}
+  \item[Way] \only<2>{Collection of nodes. Can be used to represent
+    such geometric features as lines (roads, borders, etc)
+    and polygons (parks, buildings, etc.).}
+  \item[Relation] \only<3>{Collection of other primitives (including
+    relations themselves). Used for storing complex
+    relationships between geospatial objects.}
+  \end{description}
+\end{frame}
+
 \begin{frame}[fragile]
   \frametitle{How OSM XML looks like}
   \lstinputlisting[language=XML]{osm-xml-overview.xml}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Data primitives}
-  \begin{description}
-  \item[Node] Stands for one geospatial point.
-  \item[Way] Collection of nodes. Can be used to represent
-    such geometric features as lines (roads, borders, etc)
-    and polygons (parks, buildings, etc.).
-  \item[Relation] Collection of other primitives (including
-    relations themselves). Used for storing complex
-    relationships between geospatial objects.
-  \end{description}
 \end{frame}
 
 \begin{frame}
@@ -241,20 +297,20 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{osm2pgsql database}
-  Imports to PostgreSQL with the following tables
-  \begin{itemize}
-  \item point
-  \item line
-  \item polygon
-  \item nodes
-  \end{itemize}
+\begin{frame}[t]
+  \frametitle{osm2pgsql}
+  \only<1>{Imports data to PostgreSQL with the following table setup}
+  \begin{description}
+  \item[planet\_osm\_point] \only<2>{Stores features which are represented with single symbol,
+    such as bus stops, hotels (if mapped as points), ATMs, etc.}
+  \item[planet\_osm\_line] \only<3>{Almost 90\% is take by different types of roads.}
+  \item[planet\_osm\_polygon] \only<4>{Buildings, parks, etc.}
+  \end{description}
 \end{frame}
 
 \begin{frame}
   \frametitle{Fetching data from PostgreSQL}
-  \lstinputlisting{simple-sql-query.sql}[language=SQL]
+  \lstinputlisting[language=SQL]{simple-sql-query.sql}
 \end{frame}
 
 \begin{frame}
@@ -271,167 +327,220 @@
 
 \begin{frame}
   \frametitle{What is Mapnik}
-  Rendering library for
+  Map rendering framework, written in \texttt{C++} with built-in \texttt{Python} bindings.
 \end{frame}
 
 \begin{frame}
   \frametitle{Mapnik concepts}
   \begin{description}
-  \item[Rule] Collection of drawing rules for various data inputs.
-  \item[Style] Collection of rules. Exists mostly of convenience
-    for defining layers.
-  \item[Datasource] Source of geospatial data.
-  \item[Layer] Link between datasource and styles
+  \item[Symbolizer] \only<1>{Drawing rule of given geometric feature}
+  \item[Rule] \only<2>{Collection of symbolizers for various data inputs.}
+  \item[Style] \only<3>{Collection of rules. Exists mostly of convenience
+    for defining layers.}
+  \item[Datasource] \only<4>{Source of geospatial data.}
+  \item[Layer] \only<5>{Link between datasource and styles}
+  \item[Map] \only<6>{Abstraction over links between styles and layers}
   \end{description}
-  % \item Style
-  % \item Map
-  % \item Rule
-  % \item Layer
-  % \item Datasource
-  % \end{itemize}
 \end{frame}
 
 \subsection{Hello World in Mapnik}
 
 \begin{frame}
   \frametitle{Rendering map}
-import
-style and rules
-layer
-map
-rendering
+  \only<1>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-import.py}
+    \end{center}
+  }
+  \only<2>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-rules.py}
+    \end{center}
+  }
+  \only<3>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-styles.py}
+    \end{center}
+  }
+  \only<4>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-layers.py}
+    \end{center}
+  }
+  \only<5>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-map.py}
+    \end{center}
+  }
+  \only<6>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-image.py}
+    \end{center}
+  }
 \end{frame}
 
 \begin{frame}
-  \frametitle{Creating style}
-
+  \frametitle{Loading map file}
+  \only<1>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-xml-import.py}
+    \end{center}
+  }
+  \only<2>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-image.py}
+    \end{center}
+  }
 \end{frame}
 
 \begin{frame}
-  \frametitle{Creating layer}
-
+  \frametitle{Creating map file}
+  \only<1>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-map.xml}
+    \end{center}
+  }
+  \only<2>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-style.xml}
+    \end{center}
+  }
+  \only<3>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-layer.xml}
+    \end{center}
+  }
 \end{frame}
 
-\begin{frame}
-  \frametitle{Linking layers and styles}
+% \subsection{Mapnik map files}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{Overview of map file in XML}
 
-\begin{frame}
-  \frametitle{Selecting area to render}
+% \end{frame}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{Defining styles in XML}
 
-\subsection{Mapnik map files}
+% \end{frame}
 
-\begin{frame}
-  \frametitle{Overview of map file in XML}
+% \begin{frame}
+%   \frametitle{Defining rules in XML}
 
-\end{frame}
+% \end{frame}
 
-\begin{frame}
-  \frametitle{Defining styles in XML}
+% \begin{frame}
+%   \frametitle{Defining layers in XML}
 
-\end{frame}
+% \end{frame}
 
-\begin{frame}
-  \frametitle{Defining rules in XML}
+% \subsection{Real world example}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{Fonts and fontsets}
 
-\begin{frame}
-  \frametitle{Defining layers in XML}
+% \end{frame}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{Including PostGIS datasources}
 
-\subsection{Real world example}
+% \end{frame}
 
-\begin{frame}
-  \frametitle{Fonts and fontsets}
+% \begin{frame}
+%   \frametitle{Changing level of details aka zoom levels}
 
-\end{frame}
+% \end{frame}
 
-\begin{frame}
-  \frametitle{Including PostGIS datasources}
+% \begin{frame}
+%   \frametitle{Adding roads}
 
-\end{frame}
-
-\begin{frame}
-  \frametitle{Changing level of details aka zoom levels}
-
-\end{frame}
-
-\begin{frame}
-  \frametitle{Adding roads}
-
-\end{frame}
+% \end{frame}
 
 
-\begin{frame}
-  \frametitle{Adding POIs}
+% \begin{frame}
+%   \frametitle{Adding POIs}
 
-\end{frame}
+% \end{frame}
 
 
 \section{Imagery server}
 
 \subsection{Simple map requests}
 
-
+\begin{frame}[fragile]
+  \frametitle{Hello world API}
+  \begin{block}{\ttfamily{http://localhost:5000/map}}
+    \only<1>{
+      \lstinputlisting{pycon-2011-tutorial-files/ts-hw-import.py}
+    }
+    \only<2>{
+      \lstinputlisting{pycon-2011-tutorial-files/ts-hw-handler.py}
+    }
+    \only<3>{
+      \lstinputlisting{pycon-2011-tutorial-files/ts-hw-utils-render.py}
+    }
+  \end{block}
+\end{frame}
 
 \subsection{Tile API}
 
-\subsection{Additional APIs}
-
-
-
-\begin{frame}
-  \frametitle{API}
-
-\end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Hello world API}
-  \ttfamily{http://localhost:5000/}
-  % \begin{centering}
-  %   \includegraphics[scale=1.0]{simple-map.png}
-  % \end{centering}
+  \frametitle{Tile API}
+  \begin{block}{\ttfamily{http://localhost:5000/0/0/0.png}}
+    \only<1>{
+      \lstinputlisting{pycon-2011-tutorial-files/ts-hw-tile-import.py}
+    }
+    \only<2>{
+      \lstinputlisting{pycon-2011-tutorial-files/ts-hw-tile.py}
+    }
+    \only<3>{
+      \lstinputlisting{pycon-2011-tutorial-files/ts-hw-utils-parse_coords.py}
+    }
+    \only<4>{
+      \lstinputlisting{pycon-2011-tutorial-files/ts-hw-utils-pixel2latlon.py}
+    }
+  \end{block}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Starting with Flask}
+% \subsection{Additional APIs}
 
-\end{frame}
 
-\begin{frame}
-  \frametitle{Adding map rendering}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{Starting with Flask}
 
-\begin{frame}
-  \frametitle{Word about tiles}
+% \end{frame}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{Adding map rendering}
 
-\begin{frame}
-  \frametitle{OSM tile scheme}
+% \end{frame}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{Word about tiles}
 
-\begin{frame}
-  \frametitle{Bing tile scheme}
+% \end{frame}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{OSM tile scheme}
 
-\begin{frame}
-  \frametitle{Adding basic staticmaps}
+% \end{frame}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{Bing tile scheme}
 
-\begin{frame}
-  \frametitle{Utility functions}
+% \end{frame}
 
-\end{frame}
+% \begin{frame}
+%   \frametitle{Adding basic staticmaps}
+
+% \end{frame}
+
+% \begin{frame}
+%   \frametitle{Utility functions}
+
+% \end{frame}
 
 
 % Let's see our first example

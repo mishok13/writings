@@ -1,0 +1,14 @@
+  <Style name="world">
+    <Rule>
+      <PolygonSymbolizer>
+        <CssParameter name="fill">black
+	</CssParameter>
+      </PolygonSymbolizer>
+      <LineSymbolizer>
+	<CssParameter name="stroke">grey
+	</CssParameter>
+	<CssParameter name="stroke-width">0.1
+	</CssParameter>
+      </LineSymbolizer>
+    </Rule>
+  </Style>

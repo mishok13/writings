@@ -1,2 +1,8 @@
-<relation>
+<relation id="8472">
+  <tag k="type" v="associatedStreet" />
+  <tag k="name" v="Peachtree Street" />
+  <member type="way" ref="11231"
+	  role="house" />
+  <member type="way" ref="314171"
+	  role="street" />
 </relation>

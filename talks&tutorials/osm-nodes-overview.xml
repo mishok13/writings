@@ -1,3 +1,4 @@
-<node id="16122">
-
+<node id="16122" lat="12.1021" lon="-72.341">
+  <tag k="tourism" v="hotel" />
+  <tag k="name" v="Hyatt Regency" />
 </node>
