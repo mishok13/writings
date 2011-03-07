@@ -1,0 +1,27 @@
+Outline should have smaller font
+Should I mention flask in the intro slide?
+Buy CDs, fucking shit and prepare handouts on the site
+Less info on one slide, use overlays
+Characteristics of maps -- not fixed!
+Definitions of maps -- elaborate in comments what's thematic, charts, etc
+Add distance distortion
+Add pictures to different surface projections
+Combine different examples of Tissot's indicatrix on one slide each
+Compare Iceland to Madagascar
+Add more projections in general
+More linking between projections, cartography, data, openstreetmap
+WKT -- not standard, rather transport coding convention?
+link from data to openstreetmap not clear
+Node also holds metainformation, don't forget about it
+center XML code
+explain tag system
+bold the things that are being talked about
+relation -- show not only ways in relations
+add 2-3 slides about osmosis and short example of usage
+SQL is loosely linked here, maybe move to mapnik map file creation
+link between data import and mapnik, it's a little bit short right now
+map is not an abstraction
+hello world -- highlight important sections
+Creating map file -- need some good style right now
+
+flask tutorial -- extend until bing/osm tile, staticmaps (+ markers + polygons) , general utility functions covered. maybe add basic wts support
