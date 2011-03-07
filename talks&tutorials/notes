@@ -25,3 +25,9 @@ hello world -- highlight important sections
 Creating map file -- need some good style right now
 
 flask tutorial -- extend until bing/osm tile, staticmaps (+ markers + polygons) , general utility functions covered. maybe add basic wts support
+explain map resizing in mapnik section, it's not clear actually
+drop metatiles at first, add later
+add math explanation
+more pictures at the end of each code part
+
+Summary should include explanation on future investigation
