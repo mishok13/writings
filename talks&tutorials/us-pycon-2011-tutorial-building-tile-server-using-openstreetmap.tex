@@ -30,7 +30,7 @@
 {
   \begin{frame}<beamer>
     \frametitle{Outline}
-    \tableofcontents[currentsubsection]
+    \scriptsize{\tableofcontents[currentsubsection]}
   \end{frame}
 }
 
@@ -38,7 +38,7 @@
 
 \begin{frame}
   \frametitle{Outline}
-  \tableofcontents
+  \scriptsize{\tableofcontents}
 \end{frame}
 
 \section{Objectives and prerequisites}
@@ -54,7 +54,7 @@
 \begin{frame}{First of all}
   \begin{itemize}
   \item Grab the CD or flash with all the data from me
-  \item Use materials at content.mishkovskyi.net/pycon2011
+  \item Use materials at mishkovskyi.net/pycon2011
   \item Or use handouts
   \end{itemize}
 \end{frame}
@@ -66,9 +66,10 @@
 \begin{frame}
   \frametitle{Terms}
   \begin{description}
-  \item[Map] Graphic representation of the geographical setting
-  \item[Cartography] Science and practice of making maps
-  \item[GIS] A system that collects, analyzes, manages or processes in any other way data linked to location.
+  \item[Map] \only<1>{Graphic representation of the geographical setting}
+  \item[Cartography] \only<2>{Science and practice of making maps}
+  \item[Spatial data] \only<3>{Any kind of data linked to location}
+  \item[GIS] \only<4>{A system that collects, analyzes, manages or processes in any other way spatial data.}
   \end{description}
 \end{frame}
 
@@ -92,40 +93,59 @@
   \end{itemize}
 \end{frame}
 
+% TODO: elaborate, more keywords
 \begin{frame}
   \frametitle{Classification of maps}
-  \begin{itemize}
-  \item By scale -- small-scale world, large-scale your neighborhood
-  \item By function -- general reference, thematic, charts
-  \item By subject matter -- cadastre, plans
-  \end{itemize}
+  \begin{description}
+  \item[Scale] \only<1>{Relative size at which objects are represented
+      \begin{itemize}
+      \item Small-scale -- map of the world or continent
+      \item Large-scale -- map of your neighborhood
+      \end{itemize}
+    }
+  \item[Function] \only<2>{
+      \begin{itemize}
+      \item General reference
+      \item Thematic
+      \item Charts
+      \end{itemize}
+    }
+  \item[Subject matter] \only<3>{
+      \begin{itemize}
+      \item Cadastre
+      \item Plans
+      \end{itemize}
+    }
+  \end{description}
 \end{frame}
 
 
 \subsection{Map projections}
 
+% TODO: Add image
 \begin{frame}
   \frametitle{Projection}
-  Conversion of spherical information into 2d pane
+  Conversion of spherical information into two dimensional pane.
+\end{frame}
+
+% TODO: add images
+
+\begin{frame}
+  \frametitle{Patterns of distortion}
+  \begin{itemize}
+  \item Azimuthal
+  \item Conical
+  \item Cylindrical
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Characteristics of projection}
   \begin{itemize}
-  \item Linear distortion (scale factor)
-  \item Area distortion
   \item Angle distortion
-  \item Distance distortion
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Types of projections by surface}
-  \begin{itemize}
-  \item Conical
-  \item Cylindrical
-  \item Conformal
-  \item
+  \item Area distortion
+  \item Linear distortion (scale factor)
+  \item Direction distortion
   \end{itemize}
 \end{frame}
 
@@ -135,14 +155,6 @@
     \begin{center}
       \includegraphics[scale=0.5]{pycon-2011-tutorial-files/indicatrix.png}
     \end{center}
-  \end{block}
-  \begin{block}{Distortions}
-    \begin{description}
-    \item[Linear] If $OA \neq OA'$ or $OB \neq OB'$
-    \item[Angle]
-    \item[Area] $OB' \times OA \neq OA \times OB'$
-    \end{description}
-
   \end{block}
 \end{frame}
 
@@ -192,6 +204,8 @@
 
 \subsection{Spatial data}
 
+TODO: expand
+
 \begin{frame}
   \frametitle{Classes of data}
   \begin{itemize}
@@ -216,7 +230,7 @@
   \begin{itemize}
   \item Surveying
   \item GPS tracks
-  \item Tracing aerial imagery
+  \item Aerial imagery
   \end{itemize}
 \end{frame}
 
@@ -225,7 +239,7 @@
   \begin{itemize}
   \item RDBMS (PostgreSQL + PostGIS, MySQL Spatial, Oracle Spatial, Spatialite)
   \item Non-relational databases (Neo4j, MongoDB, CouchDB)
-  \item Flat files (WKB, WKT, GeoJSON, KML, GML)
+  \item Flat files (Shapefiles, GeoJSON, KML, GML)
   \end{itemize}
 \end{frame}
 
@@ -253,7 +267,7 @@
   Special XML format used in
   \begin{itemize}
   \item Official API
-  \item Official plant extracts
+  \item Official planet extracts
   \item Unofficial eXtended API (XAPI)
   \end{itemize}
 \end{frame}
@@ -301,6 +315,16 @@
   \end{itemize}
 \end{frame}
 
+\begin{frame}
+  \frametitle{Importing data using osm2pgsql}
+  \texttt{\$ osm2pgsql -s path/to/default.style}
+  \begin{description}
+  \item[-s] Path to style file for osm2pgsql, which defines how and what data will be imported
+  \item[-d] Database name
+% TODO: FINISH
+  \end{description}
+\end{frame}
+
 \begin{frame}[t]
   \frametitle{osm2pgsql}
   \only<1>{Imports data to PostgreSQL with the following table setup}
@@ -329,6 +353,8 @@
 
 \section{Mapnik}
 
+\subsection*{Introduction}
+
 \begin{frame}
   \frametitle{What is Mapnik}
   Map rendering framework, written in \texttt{C++} with built-in \texttt{Python} bindings.
@@ -342,10 +368,13 @@
   \item[Style] \only<3>{Collection of rules. Exists mostly of convenience
     for defining layers.}
   \item[Datasource] \only<4>{Source of geospatial data.}
-  \item[Layer] \only<5>{Link between datasource and styles}
-  \item[Map] \only<6>{Abstraction over links between styles and layers}
+  \item[Layer] \only<5>{Description of which style will be used to render
+    given datasource}
+  \item[Map] \only<6>{Container of layers and styles}
   \end{description}
 \end{frame}
+
+% TODO: add picture of map + layer + styles
 
 \subsection{Hello World in Mapnik}
 
@@ -381,7 +410,39 @@
       \lstinputlisting{pycon-2011-tutorial-files/hw-image.py}
     \end{center}
   }
+  \only<7>{
+    This should produce nice image
+    \begin{center}
+      \includegraphics[scale=0.4]{pycon-2011-tutorial-files/hw.png}
+    \end{center}
+  }
 \end{frame}
+
+\begin{frame}
+  \frametitle{Map and Image size}
+  \begin{itemize}
+  \item As you might remember, we've set width and
+    height to both Map and Image
+  \item The concept of map view and bounding box
+  \end{itemize}
+\end{frame}
+
+\subsection{Handling projections in Mapnik}
+
+\begin{frame}
+  \frametitle{Projections in Mapnik}
+  \only<1>{
+    \begin{itemize}
+    \item Provided by Proj.4 library
+      TODO: add explanation, provide examples
+    \end{itemize}
+  }
+  \only<2>{
+    Or just use spatialreference.org
+  }
+\end{frame}
+
+\subsection{Using XML in Mapnik}
 
 \begin{frame}
   \frametitle{Loading map file}
@@ -414,7 +475,102 @@
       \lstinputlisting{pycon-2011-tutorial-files/hw-layer.xml}
     \end{center}
   }
+  \only<4>{
+    \includegraphics{pycon-2011-tutorial-files/hw-crippled.png}
+  }
 \end{frame}
+
+\begin{frame}
+  \frametitle{Fixing the image}
+  \only<1>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-xml-import.py}
+    \end{center}
+  }
+  \only<2>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-proj.py}
+    \end{center}
+  }
+  \only<3>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-bbox.py}
+    \end{center}
+  }
+  \only<4>{
+    \begin{center}
+      \lstinputlisting{pycon-2011-tutorial-files/hw-image-fixed.py}
+    \end{center}
+  }
+  \only<5>{
+    \includegraphics{pycon-2011-tutorial-files/hw-fixed.png}
+  }
+\end{frame}
+
+\subsection{More on Mapnik XML}
+
+TODO: srs
+
+\begin{frame}
+  \frametitle{SQL mini-tutorial}
+  \lstinputlisting{pycon-2011-tutorial-files/find-hyatt.sql}
+  \lstinputlisting{pycon-2011-tutorial-files/find-hyatt-with-bbox.sql}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Extending map files}
+  \only<1>{
+    \begin{center}
+      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-scale.xml}
+    \end{center}
+  }
+  \only<2>{
+    \begin{center}
+      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-filter.xml}
+    \end{center}
+  }
+  \only<3>{
+    \begin{center}
+      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-roads.xml}
+    \end{center}
+  }
+  \only<4>{
+    \begin{center}
+      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-extent.xml}
+    \end{center}
+  }
+  \only<5>{
+    \begin{center}
+      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-postgis.xml}
+    \end{center}
+  }
+  \only<6>{
+    \begin{center}
+      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-text.xml}
+    \end{center}
+  }
+  \only<7>{
+    \begin{center}
+      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-parking.xml}
+    \end{center}
+  }
+  \only<8>{
+    \begin{center}
+      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-hotels.xml}
+    \end{center}
+  }
+  \only<9>{
+    \begin{center}
+      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-buildings.xml}
+    \end{center}
+  }
+  \only<10>{
+    \begin{center}
+      \includegraphics{pycon-2011-tutorial-files/extended.png}
+    \end{center}
+  }
+\end{frame}
+
 
 % \subsection{Mapnik map files}
 
@@ -469,6 +625,11 @@
 
 \section{Imagery server}
 
+\begin{frame}
+  \frametitle{Our goals}
+
+\end{frame}
+
 \subsection{Simple map requests}
 
 \begin{frame}[fragile]
@@ -488,6 +649,10 @@
 
 \subsection{Tile API}
 
+\begin{frame}
+  \frametitle{What are tiles}
+
+\end{frame}
 
 \begin{frame}[fragile]
   \frametitle{Tile API}
@@ -507,97 +672,57 @@
   \end{block}
 \end{frame}
 
-% \subsection{Additional APIs}
+\subsection{Staticmaps API}
 
+\subsection{Utility APIs}
 
+\begin{frame}
+  \frametitle{pixel2latlon}
 
-% \begin{frame}
-%   \frametitle{Starting with Flask}
+\end{frame}
 
-% \end{frame}
+\begin{frame}
+  \frametitle{latlon2pixel}
 
-% \begin{frame}
-%   \frametitle{Adding map rendering}
+\end{frame}
 
-% \end{frame}
+\begin{frame}
+  \frametitle{latlon2tile \& tile2latlon}
 
-% \begin{frame}
-%   \frametitle{Word about tiles}
+\end{frame}
 
-% \end{frame}
+\begin{frame}
+  \frametitle{tilesbbox}
 
-% \begin{frame}
-%   \frametitle{OSM tile scheme}
+\end{frame}
 
-% \end{frame}
+\section*{Summary}
 
-% \begin{frame}
-%   \frametitle{Bing tile scheme}
+\begin{frame}
+  \frametitle{What's been left behind?}
+  \begin{itemize}
+  \item Usage of PolygonPatternSymbolizer and LinePatternSymbolizer
+  \item Handling of huge XML files through entities
+  \item Database optimizations
+  \end{itemize}
+\end{frame}
 
-% \end{frame}
+\begin{frame}
+  \frametitle{What to do next?}
+  \begin{itemize}
+  \item Build your own specialized map
+  \item Experiment with Mapnik 2.0
+  \item Get into Mapnik development
+  \end{itemize}
+\end{frame}
 
-% \begin{frame}
-%   \frametitle{Adding basic staticmaps}
-
-% \end{frame}
-
-% \begin{frame}
-%   \frametitle{Utility functions}
-
-% \end{frame}
-
-
-% Let's see our first example
-% ...
-% Looks scary, but do not fear, we'll go through every part of this nice and easy
-
-% First of all, let's look at the line with the projection. It conforms to the
-% previously discussed way of producing projection descriptions used by Proj.4
-
-% TODO: actual descriptions prior to this
-
-% Then, there's a simple Map creation mechanism. Map contains so called layers,
-% which define the way the image layers are stacked and styles, which are named
-% collections of rules, which describe the way geographical features are going
-% to be represented
-
-% Layers
-
-% In classic cartography layers represent the actual physical layer. That is,
-% layers correspond to the topographic view
-
-% Styles
-
-% Styles are set of rules
-
-% Rules
-
-% They define the way geographical features get rendered in the image, within
-% the given scale.
-
-
-
-
-% Mapnik
-% Style file, layers and datasources
-% Fonts
-% Symbolizers
-
-% To tile server
-
-% WMS
-% Tile API
-% Different ways
-% Google, Bing, Mapquest, Yahoo
-% Building tile server from scratch
-% Staticmaps
-
-% Flask + Mapnik
-
-% Changing styles on the fly
-% Staticmaps
-% Get tiles in bounding box
-
+\begin{frame}
+  \frametitle{Wrapping up}
+  \begin{itemize}
+  \item Hope you have learned something useful and new
+  \item Contact me at \texttt{contact@mishkovskyi.net}
+  \end{itemize}
+\end{frame}
 
 % http://msdn.microsoft.com/en-us/library/bb259689.aspx
 

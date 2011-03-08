@@ -1,5 +1,11 @@
-<osm version=''0.6''>
+<osm version="0.6">
   <node></node>
+  <node></node>
+  ...
   <way></way>
+  <way></way>
+  ...
   <relation></relation>
+  <relation></relation>
+  ...
 </osm>
