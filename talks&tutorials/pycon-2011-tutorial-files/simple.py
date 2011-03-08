@@ -16,9 +16,11 @@ projection = mapnik.Projection(projections['mollweide'])
 map = mapnik.Map(1200, 600)
 mapnik.load_map(map, sys.argv[1])
 image = mapnik.Image(1200, 600)
-coords = mapnik.Coord(-180.0, -90.0), mapnik.Coord(180.0, 90.0)
+coords = mapnik.Coord(-179.999, -89.999), mapnik.Coord(179.999, 89.999)
 bbox = mapnik.Envelope(projection.forward(coords[0]),
                        projection.forward(coords[1]))
+print bbox
+print mapnik.Envelope(mapnik.Coord(-175., -85.0), mapnik.Coord(175.0, 85.0)).forward(projection)
 map.zoom_to_box(bbox)
 mapnik.render(map, image)
 with open(sys.argv[2], 'w') as f:

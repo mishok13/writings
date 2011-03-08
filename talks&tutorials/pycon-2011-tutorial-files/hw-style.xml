@@ -1,4 +1,4 @@
-  <Style name="world">
+  <Style name="landmass">
     <Rule>
       <PolygonSymbolizer>
         <CssParameter name="fill">grey

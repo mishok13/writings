@@ -6,7 +6,7 @@
 \usepackage{graphicx}
 
 \lstset{
-  basicstyle=\footnotesize\ttfamily,
+  basicstyle=\scriptsize\ttfamily,
   showstringspaces=false
 }
 
@@ -204,7 +204,7 @@
 
 \subsection{Spatial data}
 
-TODO: expand
+% TODO: expand
 
 \begin{frame}
   \frametitle{Classes of data}
@@ -300,6 +300,8 @@ TODO: expand
   \lstinputlisting[language=XML]{osm-ways-overview.xml}
 \end{frame}
 
+% TODO: Add nodes?
+
 \begin{frame}
   \frametitle{Relations}
   \lstinputlisting[language=XML]{osm-relations-overview.xml}
@@ -308,47 +310,33 @@ TODO: expand
 \begin{frame}
   \frametitle{Parsing OSM data}
   \begin{itemize}
-  \item Osmosis
   \item osm2pgsql
+  \item Osmosis
   \item imposm
-  \item tons of little scripts
+  \item osm2ogr, osm2shp, \ldots
   \end{itemize}
 \end{frame}
 
+% TODO: FINISH
+
 \begin{frame}
   \frametitle{Importing data using osm2pgsql}
-  \texttt{\$ osm2pgsql -s path/to/default.style}
+  \texttt{\$ osm2pgsql -S import.style -d gis -m georgia.osm.bz2}
   \begin{description}
-  \item[-s] Path to style file for osm2pgsql, which defines how and what data will be imported
-  \item[-d] Database name
-% TODO: FINISH
+  \item[-S] \only<1>{Path to style file for osm2pgsql, which defines how and what data will be imported}
+  \item[-d] \only<2>{Database name}
+  \item[-m] \only<3>{Import data in Mercator projection}
   \end{description}
 \end{frame}
 
 \begin{frame}[t]
-  \frametitle{osm2pgsql}
-  \only<1>{Imports data to PostgreSQL with the following table setup}
+  \frametitle{Table layout after osm2pgsql import}
   \begin{description}
   \item[planet\_osm\_point] \only<2>{Stores features which are represented with single symbol,
     such as bus stops, hotels (if mapped as points), ATMs, etc.}
   \item[planet\_osm\_line] \only<3>{Almost 90\% is take by different types of roads.}
   \item[planet\_osm\_polygon] \only<4>{Buildings, parks, etc.}
   \end{description}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Fetching data from PostgreSQL}
-  \lstinputlisting[language=SQL]{simple-sql-query.sql}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Limiting search by bounding box}
-  \lstinputlisting{sql-query-with-bbox.sql}[language=SQL]
-\end{frame}
-
-\begin{frame}
-  \frametitle{More silly examples}
-  \lstinputlisting{sql-examples.sql}[language=SQL]
 \end{frame}
 
 \section{Mapnik}
@@ -411,12 +399,15 @@ TODO: expand
     \end{center}
   }
   \only<7>{
-    This should produce nice image
-    \begin{center}
-      \includegraphics[scale=0.4]{pycon-2011-tutorial-files/hw.png}
-    \end{center}
+    \begin{block}{Result}
+      \begin{center}
+        \includegraphics[scale=0.4]{pycon-2011-tutorial-files/hw.png}
+      \end{center}
+    \end{block}
   }
 \end{frame}
+
+% TODO: finish
 
 \begin{frame}
   \frametitle{Map and Image size}
@@ -429,6 +420,8 @@ TODO: expand
 
 \subsection{Handling projections in Mapnik}
 
+% TODO: finish
+
 \begin{frame}
   \frametitle{Projections in Mapnik}
   \only<1>{
@@ -438,25 +431,12 @@ TODO: expand
     \end{itemize}
   }
   \only<2>{
-    Or just use spatialreference.org
+    To make sure you don't make any mistakes,
+    use \texttt{spatialreference.org}.
   }
 \end{frame}
 
 \subsection{Using XML in Mapnik}
-
-\begin{frame}
-  \frametitle{Loading map file}
-  \only<1>{
-    \begin{center}
-      \lstinputlisting{pycon-2011-tutorial-files/hw-xml-import.py}
-    \end{center}
-  }
-  \only<2>{
-    \begin{center}
-      \lstinputlisting{pycon-2011-tutorial-files/hw-image.py}
-    \end{center}
-  }
-\end{frame}
 
 \begin{frame}
   \frametitle{Creating map file}
@@ -475,100 +455,178 @@ TODO: expand
       \lstinputlisting{pycon-2011-tutorial-files/hw-layer.xml}
     \end{center}
   }
+\end{frame}
+
+\begin{frame}
+  \frametitle{Loading map file}
+  \only<1>{
+    \begin{block}{Imports}
+      \begin{center}
+        \lstinputlisting{pycon-2011-tutorial-files/hw-xml-import.py}
+      \end{center}
+    \end{block}
+  }
+  \only<2>{
+    \begin{block}{Rendering}
+      \begin{center}
+        \lstinputlisting{pycon-2011-tutorial-files/hw-image-crippled.py}
+      \end{center}
+    \end{block}
+  }
+  \only<3>{
+    \begin{block}{Result}
+      \begin{center}
+        \includegraphics[scale=0.3]{pycon-2011-tutorial-files/hw-crippled.png}
+      \end{center}
+    \end{block}
+  }
   \only<4>{
-    \includegraphics{pycon-2011-tutorial-files/hw-crippled.png}
+    \begin{block}{What's wrong?}
+      \begin{center}
+        \lstinputlisting{pycon-2011-tutorial-files/hw-where-wrong.py}
+      \end{center}
+    \end{block}
   }
 \end{frame}
 
 \begin{frame}
   \frametitle{Fixing the image}
   \only<1>{
-    \begin{center}
-      \lstinputlisting{pycon-2011-tutorial-files/hw-xml-import.py}
-    \end{center}
+    \begin{block}{Importing}
+      \begin{center}
+        \lstinputlisting{pycon-2011-tutorial-files/hw-xml-import-fixed.py}
+      \end{center}
+    \end{block}
   }
   \only<2>{
-    \begin{center}
-      \lstinputlisting{pycon-2011-tutorial-files/hw-proj.py}
-    \end{center}
+    \begin{block}{Creating projection}
+      \begin{center}
+        \lstinputlisting{pycon-2011-tutorial-files/hw-proj.py}
+      \end{center}
+    \end{block}
   }
   \only<3>{
-    \begin{center}
-      \lstinputlisting{pycon-2011-tutorial-files/hw-bbox.py}
-    \end{center}
+    \begin{block}{Setting bounding box}
+      \begin{center}
+        \lstinputlisting{pycon-2011-tutorial-files/hw-bbox.py}
+      \end{center}
+    \end{block}
   }
   \only<4>{
-    \begin{center}
-      \lstinputlisting{pycon-2011-tutorial-files/hw-image-fixed.py}
-    \end{center}
+    \begin{block}{Rendering}
+      \begin{center}
+        \lstinputlisting{pycon-2011-tutorial-files/hw-image-fixed.py}
+      \end{center}
+    \end{block}
   }
   \only<5>{
-    \includegraphics{pycon-2011-tutorial-files/hw-fixed.png}
+    \begin{block}{Result}
+      \begin{center}
+        \includegraphics[scale=0.3]{pycon-2011-tutorial-files/hw-fixed.png}
+      \end{center}
+    \end{block}
   }
 \end{frame}
 
 \subsection{More on Mapnik XML}
 
-TODO: srs
-
 \begin{frame}
   \frametitle{SQL mini-tutorial}
   \lstinputlisting{pycon-2011-tutorial-files/find-hyatt.sql}
+
   \lstinputlisting{pycon-2011-tutorial-files/find-hyatt-with-bbox.sql}
+  \lstinputlisting{pycon-2011-tutorial-files/find-hyatt-with-bbox-and-reprojection.sql}
 \end{frame}
 
 \begin{frame}
   \frametitle{Extending map files}
   \only<1>{
-    \begin{center}
-      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-scale.xml}
-    \end{center}
+    \begin{block}{Changing rules based on scale}
+      \begin{center}
+        \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-scale.xml}
+      \end{center}
+    \end{block}
   }
   \only<2>{
-    \begin{center}
-      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-filter.xml}
-    \end{center}
+    \begin{block}{Changing rules based on tags}
+      \begin{center}
+        \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-filter.xml}
+      \end{center}
+    \end{block}
   }
   \only<3>{
-    \begin{center}
-      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-roads.xml}
-    \end{center}
+    \begin{block}{Adding point symbols}
+      \begin{center}
+        \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-point.xml}
+      \end{center}
+    \end{block}
   }
   \only<4>{
-    \begin{center}
-      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-extent.xml}
-    \end{center}
+    \begin{block}{Adding PostGIS datasource}
+      \begin{center}
+        \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-postgis.xml}
+      \end{center}
+    \end{block}
   }
   \only<5>{
-    \begin{center}
-      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-postgis.xml}
-    \end{center}
+    \begin{block}{Drawing ATMs}
+      \begin{center}
+        \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-atm.xml}
+      \end{center}
+    \end{block}
   }
   \only<6>{
-    \begin{center}
-      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-text.xml}
-    \end{center}
+    \begin{block}{Drawing ATMs}
+      \begin{center}
+        \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-atm-layer.xml}
+      \end{center}
+    \end{block}
   }
   \only<7>{
-    \begin{center}
-      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-parking.xml}
-    \end{center}
-  }
-  \only<8>{
-    \begin{center}
+    \begin{center}{Adding hotels}
       \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-hotels.xml}
     \end{center}
   }
-  \only<9>{
-    \begin{center}
-      \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-buildings.xml}
-    \end{center}
-  }
-  \only<10>{
-    \begin{center}
-      \includegraphics{pycon-2011-tutorial-files/extended.png}
-    \end{center}
-  }
+  % \only<>{
+  %   \begin{center}
+  %     \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-roads.xml}
+  %   \end{center}
+  % }
+  % \only<>{
+  %   \begin{center}
+  %     \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-extent.xml}
+  %   \end{center}
+  % }
+  % \only<>{
+  %   \begin{center}
+  %     \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-postgis.xml}
+  %   \end{center}
+  % }
+  % \only<>{
+  %   \begin{center}
+  %     \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-text.xml}
+  %   \end{center}
+  % }
+  % \only<>{
+  %   \begin{center}
+  %     \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-parking.xml}
+  %   \end{center}
+  % }
+  % \only<>{
+  %   \begin{center}
+  %     \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-hotels.xml}
+  %   \end{center}
+  % }
+  % \only<>{
+  %   \begin{center}
+  %     \lstinputlisting[language=XML]{pycon-2011-tutorial-files/ext-buildings.xml}
+  %   \end{center}
+  % }
+  % \only<>{
+  %   \begin{center}
+  %     \includegraphics{pycon-2011-tutorial-files/extended.png}
+  %   \end{center}
+  % }
 \end{frame}
 
 

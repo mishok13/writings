@@ -1,0 +1,12 @@
+<Layer ...>
+  ...
+  <Datasource>
+    <Parameter name="type">postgis</Parameter>
+    <Parameter name="host">localhost</Parameter>
+    <Parameter name="user">osm</Parameter>
+    <Parameter name="dbname">gis</Parameter>
+    <Parameter name="table">
+      (SELECT ...) as layername
+    </Parameter>
+  </Datasource>
+</Layer>

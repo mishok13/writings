@@ -1,0 +1,11 @@
+<Style name="POIs">
+  <Rule>
+    <MaxScaleDenominator>25000</MaxScaleDenominator>
+    <MinScaleDenominator>1</MinScaleDenominator>
+    <Filter>[amenity] = 'atm'</Filter>
+    <PointSymbolizer file="symbols/atm.png"
+		     type="png"
+		     width="16" height="16"
+		     allow_overlap="true" />
+  </Rule>
+</Style>
