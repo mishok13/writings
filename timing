@@ -1,0 +1,14 @@
+Cartography intro: 40
+Mapnik intro: 60
+  Simple Python: 15
+  Projections (proj.4): 10
+  Using XML (python part): 10
+  XML tutorial: 25
+HTTP API: 80
+  Simple map request: 15
+  Staticmaps request: 20
+  Tile explanation: 10
+  Tile osm scheme: 20
+  Tile bing scheme: 10
+  Utility APIs: 10
+Wrap up: 10
