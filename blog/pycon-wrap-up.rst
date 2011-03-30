@@ -19,7 +19,7 @@ nobody walked out of the room during my tutorial.
 Main conference featured tons of interesting talks, but of course
 I couldn't possibly make all of them, apparently because I don't scale
 to 5 rooms in a nice reproducible fashion. I'm still in process
-of watching the talks at `pycon.blip.tv`_\ and I suggest anyone
+of watching the talks at http://pycon.blip.tv and I suggest anyone
 interested in Python doing exactly this -- watching all talks, one by
 one. Some of them might generate more interest, though. For example,
 I remember how crowded it was at Alex Martelli's talk about API design
@@ -41,7 +41,8 @@ I had quite a bit of fun trying to fix and reproduce older bugs from
 their bugtracker. I admit that their way of doing code review leads to
 much higher code quality at the expense of longer ticket processing
 time. Still, I was able to provide fixes for two tickets and get to
-first twenty at `Twisted Highscore<>`_ which I find quite cool.
+first twenty at `Twisted Highscore <http://twistedmatrix.com/highscores/>`_
+which I find quite cool.
 
 And, as a short summary -- PyCon 2011 and its attendees were awesome
 and I really want to make it to Santa Clara next year.
