@@ -1,4 +1,16 @@
 Making use of OpenStreetMap data with Python
 
-As part of my everyday job I'm mostly responsible for creating maps
-using OpenStreetMap data.
+Ever wondered how web maps are created? Ever wondered if you
+could build something like Google Maps over a weekend? You
+probably can't, but this talk will show you the basics of
+what you need to know, such as importing data, rendering
+maps and even building simple routes. And all of this in
+Python!
+
+Abstract:
+* Learning how OSM data looks
+* Parsing and importing the data
+* Rendering maps with Mapnik
+* Bits of code required to build geocoder
+* Building simple router with Python and PostGIS
+* And anything else I forgot to mention in this abstract but will talk about
