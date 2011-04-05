@@ -1,0 +1,4 @@
+Making use of OpenStreetMap data with Python
+
+As part of my everyday job I'm mostly responsible for creating maps
+using OpenStreetMap data.
