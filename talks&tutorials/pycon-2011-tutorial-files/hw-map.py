@@ -1,4 +1,4 @@
-m = Map(800, 400)
-m.background = Color('white')
-m.append_style('world', style)
-m.layers.append(layer)
+map = Map(800, 400)
+map.background = Color('white')
+map.append_style('landmass', style)
+map.layers.append(layer)

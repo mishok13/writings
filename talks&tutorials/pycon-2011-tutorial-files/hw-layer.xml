@@ -1,7 +1,7 @@
-  <Layer name="world"
+  <Layer name="coastlines"
 	 srs="+proj=longlat +ellps=WGS84
 	      +datum=WGS84 +no_defs">
-    <StyleName>world</StyleName>
+    <StyleName>landmass</StyleName>
     <Datasource>
       <Parameter name="type">shape
       </Parameter>

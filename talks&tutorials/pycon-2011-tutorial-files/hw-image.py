@@ -1,5 +1,5 @@
-m.zoom_to_box(layer.envelope())
+map.zoom_to_box(layer.envelope())
 image = Image(800, 400)
-render(m, image)
-with open('test.png', 'w') as image_file:
+render(map, image)
+with open('map.png', 'w') as image_file:
     image_file.write(image.tostring('png'))

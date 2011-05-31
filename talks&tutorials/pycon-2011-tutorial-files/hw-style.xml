@@ -1,11 +1,11 @@
-  <Style name="world">
+  <Style name="landmass">
     <Rule>
       <PolygonSymbolizer>
-        <CssParameter name="fill">black
+        <CssParameter name="fill">grey
 	</CssParameter>
       </PolygonSymbolizer>
       <LineSymbolizer>
-	<CssParameter name="stroke">grey
+	<CssParameter name="stroke">black
 	</CssParameter>
 	<CssParameter name="stroke-width">0.1
 	</CssParameter>
